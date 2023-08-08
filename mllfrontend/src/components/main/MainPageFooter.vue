@@ -1,46 +1,40 @@
 <template>
   <div class="">
     <footer>
-      <div class="row" style="padding-top:20px;">
+      <ul class="d-md-flex justify-content-md-around">
+        <li class="p-2">(주)망링레</li>
+        <li class="p-2">개인정보</li>
+        <li class="p-2">Q & A</li>
+        <li class="p-2">
+          <font-awesome-icon
+              :icon="['fab', 'instagram']"
+              @click="instaLink('https://instagram.com/mango_lingo_lego?igshid=OGQ5ZDc2ODk2ZA==')"/>
+          instagram</li>
+      </ul>
+
       <!-- 전화번호 및 상호명 -->
-      <div class="col-md-3">
-        <ul>(주)망링레</ul>
-        <ul>전화번호 : </ul>
-      </div> 
+      <ul class="d-md-flex justify-content-md-around">
+        <li class="p-2">전화번호</li>
+        <li class="p-2">submit</li>
+        <li class="p-2">자주묻는질문</li>
+        <li class="p-2">
+          <font-awesome-icon
+              :icon="['fab', 'youtube']"
+              @click="youtubeLink('https://youtube.com/@mango_lingo_lego')"
+          />youtube </li>
 
-      <!-- 이용내역 -->
-      <div class="col-md-3">
-        <ul>개인정보</ul>
-        <ul>submit</ul>
-      </div> 
+      </ul>
 
-      <!-- 문의사항 -->
-      <div class="col-md-3">
-        <ul>Q & A</ul>
-        <ul>자주묻는질문</ul>
-        <ul>고객센터</ul>
-      </div> 
+      <ul class="d-md-flex justify-content-md-around">
+        <li class="p-2">개인정보</li>
+        <li class="p-2">submit</li>
+      </ul>
 
-      <!-- sns -->
-      <div class="col-md-3">
-        <ul>
-          <img 
-          src="@/assets/image/instaLogo.png"
-          class="logo-img"
-          @click="instaLink('https://instagram.com/mango_lingo_lego?igshid=OGQ5ZDc2ODk2ZA==')"
-          style="height: 6%; width: 6%; cursor: pointer;"
-        /> instagram
-        </ul>
-        <ul>
-          <img 
-          src="@/assets/image/youtubeLogo.png"
-          class="logo-img"
-          @click="youtubeLink('https://youtube.com/@mango_lingo_lego')"
-          style="height: 8%; width: 8%; cursor: pointer;"
-        /> youtube
-        </ul>
-      </div> 
-    </div>
+
+
+
+
+
     </footer>
 
   </div>

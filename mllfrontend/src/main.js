@@ -1,6 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+//폰트 css
+//import '@/src/assets/css/fonts.css'
+
 // import the fontawesome core
 import { library } from '@fortawesome/fontawesome-svg-core'
 

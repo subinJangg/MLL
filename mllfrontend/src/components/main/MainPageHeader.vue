@@ -1,6 +1,6 @@
 <template>
-  <div class = "navbar">
-    <header style="backgroundColor:#FFD89C">
+  <div class = "row">
+    <header style="backgroundColor:#A6BB8D">
       <ul class="nav justify-content-end bg-light">
         <!-- 로그인 화면 -->
         <li class="nav-item cur">
@@ -27,55 +27,19 @@
         </li>
       </ul>
 
-      <!-- 메인 로고 -->
-      <ul class="text-center">
-        <!-- 망고 -->
-        <img 
-          src="@/assets/image/mango.png"
-          class="logo-img"
-          style="height: 2.5%; width: 2.5%;"
-        />
-        <!-- 링고 -->
-        <img 
-          src="@/assets/image/lingo.png"
-          class="logo-img"
-          style="height: 2.5%; width: 2.5%;"
-        />
-        <!-- 레고 -->
-        <img 
-          src="@/assets/image/lego.png"
-          class="logo-img"
-          style="height: 3%; width: 3%;"
-        />
+      <ul class="nav justify-content-md-center">
+        <li class="nav-item" style="width:100%">
+          <router-link
+              :to="{ name : 'MainPageHome'}"
+              style="text-decoration: none;"
+          >
+            <i style="font-family:'Giants-Inline'; color:#E9EDC9; font-size:60px" >
+              MLL MARKET
+            </i>
 
-        <!-- 망링레마켓 로고 -->
-        <router-link :to="{ name : 'MainPageHome'}" >
-        <img 
-          src="@/assets/image/logo.png"
-          class="logo-img"
-          style="height: 40%; width: 40%; margin-top:9px; margin-bottom:-10px; 
-                 cursor:pointer; background-color: none;"
-        />
-      </router-link>
+          </router-link>
 
-        <!-- 망고 -->
-        <img 
-          src="@/assets/image/mango.png"
-          class="logo-img"
-          style="height: 2.5%; width: 2.5%;"
-        />
-        <!-- 링고 -->
-        <img 
-          src="@/assets/image/lingo.png"
-          class="logo-img"
-          style="height: 2.5%; width: 2.5%;"
-        />
-        <!-- 레고 -->
-        <img 
-          src="@/assets/image/lego.png"
-          class="logo-img"
-          style="height: 3%; width: 3%;"
-        />
+        </li>
       </ul>
 
       <ul class="nav justify-content-center bg-light">
@@ -104,7 +68,7 @@
           > GOODS </router-link>
         </li> 
       </ul>
-      <hr style="height:1%;color:#FFD89C"/>
+      <hr style="height:1%;color:#A6BB8D"/>
     </header>
   </div>
 </template>

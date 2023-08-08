@@ -12,7 +12,7 @@
     <div class="d-flex justify-content-center" style="margin-top:10px;">
       <input 
           class="form-control box_size" 
-          type="text" 
+          type="text"
           maxlegth="20" 
           placeholder="ID"
           ref="userId"
@@ -20,13 +20,14 @@
         />
     </div>
     <div class="d-flex justify-content-center" style="margin-top:10px;">
-      <input 
-        class="form-control box_size" 
-        type="text" 
-        maxlegth="20" 
+      <input
+        class="form-control box_size"
+        type="chkPass ? 'text' : 'password'"
+        maxlegth="20"
+        v-model="password"
         placeholder="PASSWORD"
-        @keydown="checkPass()" 
-        style="width:20px"
+        @keydown="checkPass()"
+        oninput="javascript: this.value = this.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '' );"
       />
     </div>
 
@@ -55,8 +56,8 @@
     
 <script>
 
-//var pattern_num = /[0-9]/;	// 숫자 
-//var pattern_eng = /[a-zA-Z]/;	// 문자 
+//var pattern_num = /[0-9]/;	// 숫자
+//var pattern_eng = /[a-zA-Z]/;	// 문자
 var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
 var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
 
@@ -65,6 +66,8 @@ export default {
 
   data() {
     return {
+      chkPass: false,
+      password: '',
 
     };
   },

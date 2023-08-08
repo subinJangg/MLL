@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div class="navbar-brand">
+  <div style="background-color: #FFF6E0">
+    <div class="navbar-brand" style="min-height:250px" >
       <MainPageHeader/>
     </div>
-    <div style="min-height:450px"> 
+    <div style="min-height:500px">
       <router-view/>
     </div>
-    <div style="height:150px;backgroundColor:#FFD89C">
+    <div style="height:155px;backgroundColor:#A6BB8D">
       <MainPageFooter/>
     </div>
   </div> 
@@ -26,12 +26,7 @@ export default{
 </script>
 
 <style>
-@font-face {
-    font-family: 'SDSamliphopangche_Basic';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff') format('woff'); /* 폰트 경로*/
-    font-weight: normal; /* 폰트의 두께 */
-    font-style: normal; /* 폰트의 스타일 */
-}
+@import "./assets/css/fonts.css";
 
 #app {
   font-family: 'SDSamliphopangche_Basic';
@@ -40,7 +35,7 @@ export default{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  overflow: hidden;
+ //overflow: hidden;
   /* margin-top: 60px; */
 }
 
