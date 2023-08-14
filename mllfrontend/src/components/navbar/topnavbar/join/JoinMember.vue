@@ -1,32 +1,29 @@
 <template>
-    <div class="container">
-
-
-    <div class="d-flex justify-content-center" style="margin-top:50px;">
+    <div class="row">
+    <div class="d-flex justify-content-center">
       <div style="width:300px;" >
-      <h4>
-        <font-awesome-icon :icon="['fas', 'paw']" />
-            JOIN US
-        <font-awesome-icon :icon="['fas', 'paw']" /> 
-      </h4>
+        <h4>
+          <font-awesome-icon :icon="['fas', 'paw']" />
+              JOIN US
+          <font-awesome-icon :icon="['fas', 'paw']" />
+        </h4>
   
-      <div class="vertical-bottom">
-      아이디
+        <div class="vertical-bottom">
+          아이디
+        </div>
+
+        <div class="d-flex justify-content-center" style="margin-top:10px;">
+          <input
+              class="form-control"
+              type="text"
+              maxlegth="20"
+              placeholder="아이디 입력(6~15자)"
+              style="width:300px;"
+              ref="userId"
+            />
+        </div>
       </div>
-
-    <div class="d-flex justify-content-center" style="margin-top:10px;">
-      <input 
-          class="form-control" 
-          type="text" 
-          maxlegth="20" 
-          placeholder="아이디 입력(6~15자)"
-          style="width:300px;"
-          ref="userId"
-        />
     </div>
-    </div>
-
-  </div>
     <div class="d-flex justify-content-center " style="margin-top:10px;">
       비밀번호
     </div>
@@ -40,7 +37,7 @@
     </div>
 
     <div class="d-flex justify-content-center " style="margin-top:10px;">
-    비밀번호 확인
+      비밀번호 확인
     </div>
     <div class="d-flex justify-content-center" style="margin-top:10px;">
       <input 
@@ -68,6 +65,7 @@
         전화번호
       </div>
     </div>
+
     <div class="d-flex justify-content-center" style="margin-top:10px;">
       <input 
         class="form-control " 
@@ -91,9 +89,7 @@
         style="width: 100px;"
       />
     </div>
-
-        
-    </div>
+  </div>
 </template>
     
 <script>

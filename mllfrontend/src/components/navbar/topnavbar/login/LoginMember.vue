@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-center" style="margin-top:50px;">
       <h4>
         <font-awesome-icon :icon="['fas', 'paw']" />
-        LOGIN
+          LOGIN
         <font-awesome-icon :icon="['fas', 'paw']" /> 
       </h4>
     </div>

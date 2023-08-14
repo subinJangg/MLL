@@ -1,15 +1,15 @@
 <template>
-  <div style="background-color: #FFF6E0">
-    <div class="navbar-brand" style="min-height:250px" >
+  <div style="backgroundColor:#EEEEEE">
+    <div class="navbar-brand" style="min-height:300px;positon:sticky;" >
       <MainPageHeader/>
     </div>
     <div style="min-height:500px">
       <router-view/>
     </div>
-    <div style="height:155px;backgroundColor:#A6BB8D">
+<!--    <div style="height:155px;backgroundColor:#A6BB8D">-->
       <MainPageFooter/>
-    </div>
-  </div> 
+
+  </div>
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
- //overflow: hidden;
+  overflow: hidden;
   /* margin-top: 60px; */
 }
 
