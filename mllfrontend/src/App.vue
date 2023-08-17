@@ -1,9 +1,9 @@
 <template>
   <div style="backgroundColor:#EEEEEE">
-    <div class="navbar-brand" style="min-height:300px;positon:sticky;" >
+    <div class="navbar-brand" style="min-height:250px;positon:sticky;" >
       <MainPageHeader/>
     </div>
-    <div style="min-height:500px">
+    <div style="min-height:550px">
       <router-view/>
     </div>
 <!--    <div style="height:155px;backgroundColor:#A6BB8D">-->
@@ -35,9 +35,13 @@ export default{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  overflow: hidden;
+  overflow:hidden;
   /* margin-top: 60px; */
 }
+
+@media (max-width: 768px) {
+}
+
 
 
 

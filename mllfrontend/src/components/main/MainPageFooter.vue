@@ -1,39 +1,54 @@
 <template>
-  <div class="row">
-    <footer style="height:155px;backgroundColor:#A6BB8D">
-      <ul class="d-md-flex justify-content-md-around">
-        <li class="p-2 psize">(주)망링레</li>
-        <li class="p-2">개인정보</li>
-        <li class="p-2">Q & A</li>
-        <li class="p-2 cur">
-          <font-awesome-icon
-              :icon="['fab', 'instagram']"
-              @click="instaLink('https://instagram.com/mango_lingo_lego?igshid=OGQ5ZDc2ODk2ZA==')"
-          />
-          instagram </li>
-      </ul>
 
-      <!-- 전화번호 및 상호명 -->
-      <ul class="d-md-flex justify-content-md-around">
-        <li class="p-2">전화번호</li>
-        <li class="p-2">submit</li>
-        <li class="p-2">자주묻는질문</li>
-        <li class="p-2 cur">
+    <div class="row">
+  <footer style="height:155px;backgroundColor:#A6BB8D">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+        <div class="col-md-2"/>
+        <div class="col-md-2" style="margin-top:10px">상호 : (주)망링레</div>
+        <div class="col-md-2" style="margin-top:10px">주소 : </div>
+        <div class="col-md-2" style="margin-top:10px">대표 : </div>
+        <div class="col-md-2" style="margin-top:10px">사업자등록번호 : </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-3" style="margin-top:10px">대표번호 : </div>
+        <div class="col-md-3" style="margin-top:10px">이메일 : </div>
+        <div class="col-md-3" style="margin-top:10px">통신판매업신고번호 : </div>
+        <div class="col-md-3" style="margin-top:10px">호스팅제공자  : </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-3" style="margin-top:10px">사업자정보확인</div>
+        <div class="col-md-3" style="margin-top:10px">이용약관 </div>
+        <div class="col-md-3" style="margin-top:10px">개인정보처리방법</div>
+        <div class="col-md-3" style="margin-top:10px"> </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-3 cur" style="margin-top:10px">
+          <font-awesome-icon
+            :icon="['fab', 'instagram']"
+            @click="instaLink('https://instagram.com/mango_lingo_lego?igshid=OGQ5ZDc2ODk2ZA==')"
+          /> instagram
+        </div>
+        <div class="col-md-3" style="margin-top:10px">
           <font-awesome-icon
               :icon="['fab', 'youtube']"
               @click="youtubeLink('https://youtube.com/@mango_lingo_lego')"
-          /> youtube </li>
-
-      </ul>
-
-      <ul class="d-md-flex justify-content-md-around">
-        <li class="p-2">개인정보</li>
-        <li class="p-2">submit</li>
-      </ul>
-
-    </footer>
-
-  </div>
+          /> youtube
+        </div>
+        <div class="col-md-3" style="margin-top:10px"></div>
+        <div class="col-md-3" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </footer>
+    </div>
 </template>
   
 <script>
