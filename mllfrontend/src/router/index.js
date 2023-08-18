@@ -10,7 +10,8 @@ import FindId from '@/components/navbar/topnavbar/login/FindId'
 import FindPass from '@/components/navbar/topnavbar/login/FindPass'
 import JoinMember from '@/components/navbar/topnavbar/join/JoinMember'
 import ShoppingCartList from '@/components/navbar/topnavbar/shoppingcart/ShoppingCartList'
-
+import MyPagePassCheck from '@/components/navbar/topnavbar/userpage/MyPagePassCheck'
+import MyPageSetting from '@/components/navbar/topnavbar/userpage/MyPageSetting'
 
   const routes = [
     { 
@@ -65,8 +66,19 @@ import ShoppingCartList from '@/components/navbar/topnavbar/shoppingcart/Shoppin
       path: '/topnavbar/shoppingcart/ShoppingCartList',
       name: 'ShoppingCartList',
       component : ShoppingCartList
-    },  
-
+    },
+      // 마이페이지 :: 본인확인
+    {
+      path: '/topnavbar/userpage/MyPagePassCheck',
+      name: 'MyPagePassCheck',
+      component : MyPagePassCheck
+    },
+      // 마이페이지 :: 정보수정
+    {
+      path: '/topnavbar/userpage/MyPageSetting',
+      name: 'MyPageSetting',
+      component : MyPageSetting
+    },
   ]
 
 // 라우터 생성

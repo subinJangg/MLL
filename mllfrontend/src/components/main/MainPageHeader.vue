@@ -7,7 +7,9 @@
           <router-link 
             class="nav-link active cur"
             :to="{ name : 'LoginMember'}" 
-          > LOGIN </router-link>
+          >
+            <font-awesome-icon :icon="['fas', 'key']" />
+          </router-link>
         </li>
 
         <!-- 회원가입 화면 -->
@@ -15,7 +17,9 @@
           <router-link 
             class="nav-link active cur"
             :to="{ name : 'JoinMember'}" 
-          > JOIN </router-link>
+          >
+            <font-awesome-icon :icon="['fas', 'handshake']" />
+          </router-link>
         </li>
 
         <!-- 쇼핑카트 -->
@@ -23,7 +27,19 @@
           <router-link 
             class="nav-link active cur"
             :to="{ name : 'ShoppingCartList'}" 
-          > CART </router-link>
+          >
+            <font-awesome-icon :icon="['fas', 'cart-shopping']" />
+          </router-link>
+        </li>
+
+        <!-- 마이페이지 :: 본인확인 -->
+        <li class="nav-item">
+          <router-link
+              class="nav-link active cur"
+              :to="{ name : 'MyPagePassCheck'}"
+          >
+            <font-awesome-icon :icon="['fas', 'person-shelter']" />
+          </router-link>
         </li>
       </ul>
 
@@ -72,8 +88,15 @@
 </template>
   
 <script>
+import MyPagePassCheck from "@/components/navbar/topnavbar/userpage/MyPagePassCheck.vue";
+
 export default {
   name: 'MainPageHeader',
+  computed: {
+    MyPagePassCheck() {
+      return MyPagePassCheck
+    }
+  },
   data() {
     return {
 

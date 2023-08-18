@@ -4,37 +4,45 @@
     <div class="d-flex justify-content-center" style="margin-top:50px;">
       <h4>
         <font-awesome-icon :icon="['fas', 'paw']" />
-          LOGIN
+        &nbsp; LOGIN &nbsp;
         <font-awesome-icon :icon="['fas', 'paw']" /> 
       </h4>
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top:10px;">
-      <input 
+      <input
+          v-model="userId"
           class="form-control box_size" 
           type="text"
-          maxlegth="20" 
+          maxlegth="16"
           placeholder="ID"
           ref="userId"
-          @keydown="checkId(str)" 
+          @keydown.enter="checkId()"
         />
     </div>
     <div class="d-flex justify-content-center" style="margin-top:10px;">
       <input
+        v-model="userPass"
+        ref="userPass"
         class="form-control box_size"
-        type="chkPass ? 'text' : 'password'"
+        type="text"
         maxlegth="20"
-        v-model="password"
         placeholder="PASSWORD"
-        @keydown="checkPass()"
-        oninput="javascript: this.value = this.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '' );"
+        @keydown.enter="checkPass()"
       />
+<!--       oninput="javascript: this.value = this.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');"-->
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top:10px;">
-      <button class="btn btn_color box_size float-start" type="button" @click="loginBtn()">
-        로그인
-      </button>
+      <span class="input-group-btn">
+        <button
+            class="btn btn_color box_size float-start"
+            type="button"
+            @click="loginBtn()"
+        >
+          로그인
+        </button>
+      </span>
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top:10px;">
@@ -55,11 +63,7 @@
 </template>
     
 <script>
-
-//var pattern_num = /[0-9]/;	// 숫자
-//var pattern_eng = /[a-zA-Z]/;	// 문자
-var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
-var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
+import _ from 'lodash';
 
 export default {
   name: "LoginMember",
@@ -67,7 +71,8 @@ export default {
   data() {
     return {
       chkPass: false,
-      password: '',
+      userId: '',
+      userPass: '',
 
     };
   },
@@ -79,9 +84,18 @@ export default {
   methods: {
 
     // 아이디 특수문자 제어
-    checkId(str) {
-      if(pattern_kor.test(str) || pattern_spc.test(str)) {
-        alert("소문자와 숫자만 이용하여 아이디를 입력해주세요");
+    checkId() {
+
+      const num = this.userId.search(/[0-9]/g);
+      const eng = this.userId.search(/[a-z]/gi);
+
+      if(eng < 0 && num < 0) {
+        alert("영문, 숫자를 이용하여 아이디를 입력해주세요");
+        this.$refs.userId.focus();
+        return;
+      } else if(this.userId.search(/\s/) != -1) {
+        alert("아이디는 공백 없이 입력해주세요 :)");
+        this.$refs.userId.focus();
         return;
       }
     },
@@ -89,10 +103,28 @@ export default {
     // 비밀번호 특수문자 제어
     checkPass() {
 
+      const num = this.userPass.search(/[0-9]/g);
+      const eng = this.userPass.search(/[a-z]/gi);
+      const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+      if (num < 0 || eng < 0 || spe < 0) {
+        alert("비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요 :)");
+        this.$refs.userPass.focus();
+        return;
+      }
     },
 
     // 로그인 버튼
     loginBtn() {
+      if(_.isEmpty(this.userId)) {
+        alert("아이디를 입력해주세요");
+        this.$refs.userId.focus();
+        return;
+      } else if(_.isEmpty(this.userPass)) {
+        alert("비밀번호를 입력해주세요");
+        this.$refs.userPass.focus();
+        return;
+      }
 
     },
 

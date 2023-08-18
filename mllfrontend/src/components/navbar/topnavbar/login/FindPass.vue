@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-center" style="margin-top:50px;">
       <h4>
         <font-awesome-icon :icon="['fas', 'paw']" />
-          비밀번호 찾기
+        &nbsp; 비밀번호 찾기 &nbsp;
         <font-awesome-icon :icon="['fas', 'paw']" /> 
       </h4>
     </div>

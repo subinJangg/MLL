@@ -1,13 +1,14 @@
 <template>
   <div style="backgroundColor:#EEEEEE">
-    <div class="navbar-brand" style="min-height:250px;positon:sticky;" >
+    <div class="navbar-brand header" style="min-height:250px;positon:sticky;" >
       <MainPageHeader/>
     </div>
-    <div style="min-height:550px">
+    <div>
       <router-view/>
+      <MainPageFooter/>
     </div>
 <!--    <div style="height:155px;backgroundColor:#A6BB8D">-->
-      <MainPageFooter/>
+
 
   </div>
 </template>
@@ -35,15 +36,16 @@ export default{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  overflow:hidden;
+
   /* margin-top: 60px; */
 }
-
-@media (max-width: 768px) {
+.header {
+  position: sticky;
+  top: 0px; /* 도달했을때 고정시킬 위치 */
+  padding: 5px;
+  z-index: 10;
+  overflow: visible !important;
 }
-
-
-
 
 /* #nav {
   padding: 30px;
