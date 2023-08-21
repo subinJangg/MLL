@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-    <div class="d-flex justify-content-center" style="margin-top:50px;">
+    <div class="d-flex justify-content-center" >
       <h4>
         <font-awesome-icon :icon="['fas', 'paw']" />
         &nbsp; LOGIN &nbsp;

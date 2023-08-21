@@ -1,118 +1,119 @@
 <template>
     <div class="row">
-    <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center">
         <h4>
           <font-awesome-icon :icon="['fas', 'paw']" />
             &nbsp; JOIN US &nbsp;
           <font-awesome-icon :icon="['fas', 'paw']" />
         </h4>
-    </div>
-        <div class="d-flex justify-content-center" style="margin-top:10px;">
-          아이디
-        </div>
-
-        <div class="d-flex justify-content-center" style="margin-top:10px;">
-          <input
-              v-model="userId"
-              class="form-control box_size"
-              type="text"
-              maxlength="16"
-              placeholder="아이디 입력"
-              ref="userId"
-              @change="checkId()"
-            />
-        </div>
-
-    <div class="d-flex justify-content-center" style="margin-top:10px;">
-      비밀번호
-    </div>
-    <div class="d-flex justify-content-center" style="margin-top:10px;">
-      <input
-        v-model="userPass"
-        class="form-control box_size" 
-        type="text"
-        maxlength="20"
-        placeholder="비밀번호 입력"
-        ref="userPass"
-        @change="checkPass()"
-      />
-    </div>
-
-    <div class="d-flex justify-content-center " style="margin-top:10px;">
-      비밀번호 확인
-    </div>
-    <div class="d-flex justify-content-center" style="margin-top:10px;">
-      <input
-        v-model="userPass2"
-        class="form-control box_size"
-        type="text"
-        maxlength="20"
-        placeholder="비밀번호 재입력"
-        ref="userPass2"
-        @change="checkPass2()"
-      />
-    </div>
-
-    <div class="d-flex justify-content-center " style="margin-top:10px;">
-      이름
-    </div>
-    <div class="d-flex justify-content-center" style="margin-top:10px;">
-      <input
-        v-model="userName"
-        class="form-control box_size" 
-        type="text"
-        maxlength="20"
-        placeholder="이름을 입력해주세요"
-        ref="userName"
-      />
-    </div>
-
-    <div class="d-flex justify-content-center" style="margin-top:10px;">
-      <div class="text-left" style="width:300px">
-        전화번호
       </div>
-    </div>
 
-    <div class="d-flex justify-content-center" style="margin-top:15px;">
-      <input
-        v-model="userPhone1"
-        class="form-control " 
-        type="text"
-        maxlength="3"
-        placeholder="010"
-        style="width: 85px; margin-top:-7px"
-        ref="userPhone1"
-      /> &nbsp; - &nbsp; 
-      <input
-        v-model="userPhone2"
-        class="form-control " 
-        type="text"
-        maxlength="4"
-        placeholder=""
-        style="width: 85px; margin-top:-7px"
-        ref="userPhone2"
-      /> &nbsp; - &nbsp;
-      <input
-        v-model="userPhone3"
-        class="form-control " 
-        type="text"
-        maxlength="4"
-        placeholder=""
-        style="width: 85px; margin-top:-7px"
-        ref="userPhone3"
-      />
-    </div>
-      <div class="d-flex justify-content-center" style="margin-top:10px;">
-        주소
+      <div class="d-flex justify-content-center title_margin">
+        <i class="title_line">아이디</i>
       </div>
-      <div class="d-flex justify-content-center" style="margin-top:10px;">
+
+      <div class="d-flex justify-content-center">
+        <input
+            v-model="userId"
+            class="form-control box_size"
+            type="text"
+            maxlength="16"
+            placeholder="아이디 입력"
+            ref="userId"
+            @change="checkId()"
+          />
+      </div>
+
+      <div class="d-flex justify-content-center title_margin">
+        <i class="title_line">비밀번호</i>
+      </div>
+      <div class="d-flex justify-content-center" >
+        <input
+          v-model="userPass"
+          class="form-control box_size"
+          type="text"
+          maxlength="20"
+          placeholder="비밀번호 입력"
+          ref="userPass"
+          @change="checkPass()"
+        />
+      </div>
+
+      <div class="d-flex justify-content-center title_margin">
+        <i class="title_line">비밀번호 확인</i>
+      </div>
+      <div class="d-flex justify-content-center">
+        <input
+          v-model="userPass2"
+          class="form-control box_size"
+          type="text"
+          maxlength="20"
+          placeholder="비밀번호 재입력"
+          ref="userPass2"
+          @change="checkPass2()"
+        />
+      </div>
+
+      <div class="d-flex justify-content-center" style="margin-top:15px;">
+        <i class="title_line">이름</i>
+      </div>
+      <div class="d-flex justify-content-center">
+        <input
+          v-model="userName"
+          class="form-control box_size"
+          type="text"
+          maxlength="20"
+          placeholder="이름을 입력해주세요"
+          ref="userName"
+        />
+      </div>
+
+      <div class="d-flex justify-content-center title_margin">
+        <i class="title_line">전화번호</i>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <input
+          v-model="userPhone1"
+          class="form-control "
+          type="text"
+          maxlength="3"
+          placeholder="010"
+          style="width: 95px;"
+          ref="userPhone1"
+        />
+        <i style="width:30px; margin-top:7px"> - </i>
+        <input
+          v-model="userPhone2"
+          class="form-control "
+          type="text"
+          maxlength="4"
+          placeholder=""
+          style="width: 95px;"
+          ref="userPhone2"
+        />
+        <i style="width:30px; margin-top:7px"> - </i>
+        <input
+          v-model="userPhone3"
+          class="form-control "
+          type="text"
+          maxlength="4"
+          placeholder=""
+          style="width: 95px;"
+          ref="userPhone3"
+        />
+      </div>
+      <div class="d-flex justify-content-center title_margin">
+        <i class="title_line">주소</i>
+      </div>
+      <div class="d-flex justify-content-center ">
         <input
             v-model="zonecode"
             class="form-control"
             type="text"
             maxlength="20"
             placeholder="우편번호"
-            style="width: 230px;"
+            style="width: 250px;"
             ref="zonecode"
             readonly
         />
@@ -120,7 +121,7 @@
           <button
               type="button"
               class="btn btn-light border"
-              style="width: 70px;background-color: #FFD89C;"
+              style="width: 100px;background-color: #FFD89C;"
               @click="openPostcode()"
           >
             검색
@@ -128,7 +129,7 @@
         </span>
       </div>
 
-      <div class="d-flex justify-content-center" style="margin-top:10px;">
+      <div class="d-flex justify-content-center" style="margin-top:5px;">
         <input
             v-model="roadAddress"
             class="form-control box_size"
@@ -138,7 +139,7 @@
             readonly
         />
       </div>
-      <div class="d-flex justify-content-center" style="margin-top:10px;">
+      <div class="d-flex justify-content-center" style="margin-top:5px;">
         <input
             v-model="datailAddress"
             class="form-control box_size"
@@ -147,6 +148,52 @@
             placeholder="상세주소"
             ref="datailAddress"
         />
+    </div>
+
+    <div class="d-flex justify-content-center title_margin">
+      <i class="title_line">이메일 주소</i>
+    </div>
+    <div class="d-flex justify-content-center">
+      <input
+          v-model="emailAdd"
+          class="form-control"
+          type="text"
+          maxlength="20"
+          placeholder="이메일 입력"
+          ref="emailAdd"
+          style="width:125px"
+          @change="emailAdd()"
+      />
+      <i style="width:25px; margin-top:7px"> @ </i>
+      <span v-if="searchEmail !== '1' || searchEmail !== '6'">
+        <input
+            v-model="searchEmail"
+            class="form-control"
+            maxlength="20"
+            placeholder=""
+            ref="searchEmail"
+            style="width:100px"
+            disabled
+        />
+      </span>
+      <span v-if="searchEmail === '6'">
+
+      </span>
+        <select
+            v-model="searchEmail"
+            ref="searchEmail"
+            class="form-control"
+            style="width:100px"
+            @change="styleChg()"
+        >
+          <option
+              v-for="option in searchEmailOptions"
+              :key="option.value"
+              :value="option.value"
+          >
+            {{ option.text }}
+          </option>
+        </select>
     </div>
     <div class="d-flex justify-content-center" style="margin-top:10px; margin-bottom:30px">
       <span class="input-group-btn">
@@ -181,6 +228,16 @@ export default{
       zonecode: "",
       roadAddress: "",
       datailAddress:"",
+      emailAdd: "",
+      searchEmail: "1",
+      searchEmailOptions: [
+        { text: '선택', value: '1' },
+        { text: 'naver.com', value: '2' },
+        { text: 'gmail.com', value: '3' },
+        { text: 'daum.net', value: '4' },
+        { text: 'nate.com', value: '5' },
+        { text: '직접입력', value: '6' },
+      ],
     };
   },
 
@@ -198,6 +255,13 @@ export default{
           this.roadAddress = data.roadAddress;
         },
       }).open();
+    },
+
+    styleChg() {
+   //   test = this.searchEmail.value;
+      console.log(this.searchEmailOptions.text);
+      console.log(this.searchEmail);
+      console.log(this.searchEmailOptions.text);
     },
 
     // 아이디 체크 :: 한글 X, 6 ~ 15자
@@ -300,7 +364,17 @@ export default{
 
 <style scoped>
 .box_size {
-  width: 300px;
+  width: 350px;
+}
+
+.title_margin {
+  margin-top:15px;
+}
+
+.title_line {
+  width:350px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 </style>

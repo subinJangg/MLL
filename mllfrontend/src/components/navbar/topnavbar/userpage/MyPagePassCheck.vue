@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
 
   name : "MyPagePassCheck",
@@ -67,6 +69,11 @@ export default {
 
     // 확인버튼
     intoMypage() {
+      if(_.isEmpty(this.userPass)) {
+        alert("비밀번호를 입력해주세요");
+        this.$refs.userPass.focus();
+        return;
+      }
 
     },
   },
