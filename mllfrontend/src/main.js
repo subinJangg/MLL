@@ -22,6 +22,9 @@ library.add(fab, far, fas)
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+//axios import
+import axios from 'axios';
+
 //생성한 뷰 라우터 받아오기
 import { router } from './router/index.js'
 
@@ -30,6 +33,12 @@ const app = createApp(App)
 //font awesome 컴포넌트를 전역으로 등록
 app.component('font-awesome-icon', FontAwesomeIcon)
 
+// axios / http 통신 ( 주석 부분 사용 가능 )
+//app.config.globalProperties.axios = axios;app.config.globalProperties.foo = 'bar';
+//app.provide('$axios', axios)
+app.config.globalProperties.$axios = axios
+
 // 라우터 사용
 app.use(router)
+
 app.mount('#app')

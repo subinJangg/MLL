@@ -1,9 +1,12 @@
 <template>
+  <div class="row">
+    <font-awesome-icon icon="user-secret" /> MainPageHome
 
-    <div class="MainPageHome">
-      <font-awesome-icon icon="user-secret" />
-      MainPageHome</div>
 
+
+
+
+  </div>
 </template>
   
 <script>
