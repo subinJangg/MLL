@@ -3,8 +3,10 @@
 <mapper namespace="org.mll.dao.test.MariaTestDao">
 
     <select id="selectTestMariaDb" parameterType="org.mll.dto.test.MariaTestDto" resultType="org.mll.dto.test.MariaTestDto">
-        SELECT userPass
-        FROM USER
-        WHERE userId = #{searchUserId}
+        SELECT  USER_ID AS userId
+              , USER_PASS AS userPass
+        FROM MLL_USER
+        WHERE USER_ID = #{searchUserId}
     </select>
+
 </mapper>

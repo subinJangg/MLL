@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       chkPass: false,
-      userId: '',
+
       userPass: '',
 
     };

@@ -154,20 +154,30 @@
       <i class="title_line">이메일 주소</i>
     </div>
     <div class="d-flex justify-content-center">
-      <input
-          v-model="emailAdd"
-          class="form-control"
-          type="text"
-          maxlength="20"
-          placeholder="이메일 입력"
-          ref="emailAdd"
-          style="width:125px"
-          @change="emailAdd()"
-      />
-      <i style="width:25px; margin-top:7px"> @ </i>
-      <span v-if="searchEmail !== '1' || searchEmail !== '6'">
         <input
-            v-model="searchEmail"
+            v-model="emailAdd"
+            class="form-control"
+            type="text"
+            maxlength="20"
+            placeholder="이메일 입력"
+            ref="emailAdd"
+            style="width:125px"
+
+        />
+      <i style="width:25px; margin-top:7px"> @ </i>
+        <span v-if="searchEmail == '직접입력'">
+          <input
+              v-model="searchEm"
+              class="form-control"
+              maxlength="20"
+              placeholder=""
+              ref="searchEm"
+              style="width:100px"
+          />
+        </span>
+        <span v-else>
+        <input
+            v-model="searchEm"
             class="form-control"
             maxlength="20"
             placeholder=""
@@ -175,25 +185,71 @@
             style="width:100px"
             disabled
         />
-      </span>
-      <span v-if="searchEmail === '6'">
-
-      </span>
+          </span>
         <select
             v-model="searchEmail"
             ref="searchEmail"
             class="form-control"
             style="width:100px"
-            @change="styleChg()"
+            @change="test()"
         >
           <option
               v-for="option in searchEmailOptions"
               :key="option.value"
               :value="option.value"
           >
-            {{ option.text }}
+            {{ option.value }}
           </option>
         </select>
+    </div>
+    <div class="d-flex justify-content-center title_margin">
+      <i class="title_line">성별</i>
+    </div>
+
+    <div class="d-flex justify-content-center title_margin">
+      <i class="title_line cur" style="color:red" @click="openPanel()">
+        약관 동의 필수 *
+      </i>
+      <i class="panel_clk cur" @click="openPanel()">
+        <font-awesome-icon :icon="['far', 'square-caret-down']" />
+      </i>
+    </div>
+    <div class="d-flex justify-content-center" style="margin-bottom:30px">
+      <div v-show="isPanelOpen">
+        <i class="term_title">ฅ 이용약관</i>
+        <input
+               class="form-control panel_size"
+               placeholder="이용약관"
+               disabled
+        />
+        <i class="term_chk cur" style="margin-bottom: 10px" @click="chkTerm()">
+          위의 이용약관에 동의합니다. &nbsp;
+          <input
+            v-model="termChk"
+            type="checkbox"
+          >
+        </i>
+        <i class="term_title">ฅ 개인정보 수집 및 이용에 대한 안내 &nbsp;</i>
+        <input
+           class="form-control panel_size"
+           placeholder="개인정보 수집 동의사항"
+           disabled
+        />
+        <i class="term_chk cur" @click="chkPri()">
+          위의 개인정보 수집 및 이용에 대한 안내에 동의합니다. &nbsp;
+          <input
+              v-model="priChk"
+              type="checkbox"
+          >
+        </i>
+        <i class="term_chk cur" @click="chkAll()">
+          위의 이용약관 및 개인정보 수집 및 이용에 대한 안내에 동의합니다. &nbsp;
+          <input
+              v-model="allChk"
+              type="checkbox"
+          >
+        </i>
+      </div>
     </div>
     <div class="d-flex justify-content-center" style="margin-top:10px; margin-bottom:30px">
       <span class="input-group-btn">
@@ -217,7 +273,6 @@ export default{
   name : "JoinMember",
   data() {
     return {
-      show1: false,
       userId: "",
       userPass: "",
       userPass2: "",
@@ -229,15 +284,21 @@ export default{
       roadAddress: "",
       datailAddress:"",
       emailAdd: "",
-      searchEmail: "1",
+      searchEm: "",
+      searchEmail: "선택",
       searchEmailOptions: [
-        { text: '선택', value: '1' },
-        { text: 'naver.com', value: '2' },
-        { text: 'gmail.com', value: '3' },
-        { text: 'daum.net', value: '4' },
-        { text: 'nate.com', value: '5' },
-        { text: '직접입력', value: '6' },
+        { value: '선택' },
+        { value: 'naver.com' },
+        { value: 'gmail.com' },
+        { value: 'daum.net' },
+        { value: 'nate.com' },
+        { value: '직접입력' },
       ],
+      isPanelOpen: false,
+      termChk: false,
+      priChk: false,
+      allChk: false,
+
     };
   },
 
@@ -257,11 +318,45 @@ export default{
       }).open();
     },
 
-    styleChg() {
-   //   test = this.searchEmail.value;
-      console.log(this.searchEmailOptions.text);
-      console.log(this.searchEmail);
-      console.log(this.searchEmailOptions.text);
+    test() {
+      if (_.isEqual(this.searchEmail, "선택")) {
+        this.searchEm = "";
+        return;
+      } else if (_.isEqual(this.searchEmail, "직접입력")) {
+        this.searchEm = "";
+        this.$refs.searchEm.focus();
+        return;
+      } else {
+        this.searchEm = this.searchEmail;
+        return;
+      }
+    },
+
+    openPanel() {
+      this.isPanelOpen = !this.isPanelOpen;
+    },
+
+    // 이용약관 체크
+    chkTerm() {
+      this.termChk = !this.termChk;
+    },
+
+    // 개인정보 수집 약관 체크
+    chkPri() {
+      this.priChk = !this.priChk;
+    },
+    // 전체 체크
+    chkAll() {
+
+      if(this.allChk === false) {
+        this.termChk = true;
+        this.priChk = true;
+        this.allChk = true;
+      } else {
+        this.termChk = false;
+        this.priChk = false;
+        this.allChk = false;
+      }
     },
 
     // 아이디 체크 :: 한글 X, 6 ~ 15자
@@ -277,7 +372,7 @@ export default{
         this.$refs.userId.focus();
         return;
       } else if(eng < 0 && num < 0) {
-        alert("아이디는 영문, 숫자를 혼합하여 입력해주세요 :)");
+        alert("아이디는 영문, 숫자를 이용하여 입력해주세요 :)");
         this.$refs.userId.focus();
         return;
       } else if(this.userId.search(/\s/) != -1) {
@@ -376,6 +471,35 @@ export default{
   display: flex;
   justify-content: flex-start;
 }
+
+.cur {
+  cursor: pointer;
+}
+
+.panel_size {
+  width: 350px;
+  height: 100px;
+  overflow: auto;
+  font-size: xx-small;
+}
+.panel_clk {
+  justify-content: flex-end;
+  margin-left:-15px;
+}
+
+.term_title {
+  width:350px;
+  display: flex;
+  justify-content: center;
+  font-size: small;
+}
+.term_chk {
+  width:350px;
+  display: flex;
+  justify-content: flex-start;
+  font-size: small;
+}
+
 
 </style>
     

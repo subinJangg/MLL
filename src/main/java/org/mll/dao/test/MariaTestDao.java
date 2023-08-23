@@ -6,11 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.mll.dto.test.MariaTestDto;
 import org.springframework.stereotype.Repository;
 
-@Mapper
 
+@Mapper
+@Repository
 public interface MariaTestDao {
 
-     List<MariaTestDto> selectTestMariaDb(MariaTestDto param) ;
+     public List<MariaTestDto> selectTestMariaDb(MariaTestDto param) throws Exception ;
 
 
 
