@@ -9,4 +9,9 @@
         WHERE USER_ID = #{searchUserId}
     </select>
 
+    <select id="selectSearchId" parameterType="org.mll.dto.test.MariaTestDto" resultType="org.mll.dto.test.MariaTestDto">
+        SELECT  USER_ID AS userId
+        FROM MLL_USER
+        WHERE USER_ID = #{userId}
+    </select>
 </mapper>

@@ -32,4 +32,18 @@ public class MariaTestService {
         return list;
     }
 
+    public List<MariaTestDto> getSearchId(MariaTestDto param) throws Exception {
+
+        List<MariaTestDto> list = null;
+
+        try {
+            log.info(param.getUserId());
+            list = mariaTestDao.selectSearchId(param);
+        } catch (Exception e) {
+            log.error("serv :::::::::: " + e.getMessage());
+            throw e;
+        }
+        return list;
+    }
+
 }

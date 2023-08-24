@@ -15,13 +15,28 @@
       <div class="d-flex justify-content-center">
         <input
             v-model="userId"
-            class="form-control box_size"
+            class="form-control "
             type="text"
             maxlength="16"
             placeholder="아이디 입력"
             ref="userId"
+            style="width:350px"
             @change="checkId()"
-          />
+        />
+<!--        <span class="input-group-btn">-->
+<!--          <button-->
+<!--              type="button"-->
+<!--              class="btn btn-light border"-->
+<!--              style="width: 100px;background-color: #FFD89C;"-->
+<!--              ref="chkId"-->
+
+<!--          >-->
+<!--            중복확인-->
+<!--          </button>-->
+<!--        </span>-->
+      </div>
+      <div class="d-flex justify-content-center" style="color:red;">
+        <i> {{ showMes }} </i>
       </div>
 
       <div class="d-flex justify-content-center title_margin">
@@ -191,7 +206,7 @@
             ref="searchEmail"
             class="form-control"
             style="width:100px"
-            @change="test()"
+            @change="EamilDomEv()"
         >
           <option
               v-for="option in searchEmailOptions"
@@ -208,7 +223,7 @@
 
     <div class="d-flex justify-content-center title_margin">
       <i class="title_line cur" style="color:red" @click="openPanel()">
-        약관 동의 필수 *
+        약관 동의 (필수 *)
       </i>
       <i class="panel_clk cur" @click="openPanel()">
         <font-awesome-icon :icon="['far', 'square-caret-down']" />
@@ -298,7 +313,11 @@ export default{
       termChk: false,
       priChk: false,
       allChk: false,
-
+      searchId: [],
+      chkId: null,
+      showMes: "",
+      test22: false,
+      isTest:false,
     };
   },
 
@@ -318,7 +337,58 @@ export default{
       }).open();
     },
 
-    test() {
+    // 아이디 체크 :: 한글 X, 6 ~ 15자
+    checkId() {
+
+      //const num = this.userId.search(/[0-9]/g);
+      //const eng = this.userId.search(/[a-z]/gi);
+      const kor = this.userId.search(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g);
+      const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+      if (_.isEmpty(this.userId)) {
+        alert("먼저 아이디를 입력해주세요 :)");
+        this.showMes="";
+        this.$refs.userId.focus();
+        return;
+      } else if(this.userId.length < 6 || this.userId.length > 15 ) {
+        alert("아이디는 6자리~15자리 이내로 입력해주세요 :)");
+        this.showMes="";
+        this.$refs.userId.focus();
+        return;
+      } else if( kor > -1 || spe > -1) {
+        alert("아이디는 영문과 숫자만 이용하여 입력해주세요 :)");
+        this.showMes="";
+        this.$refs.userId.focus();
+        return;
+      } else if(this.userId.search(/\s/) != -1) {
+        alert("아이디는 공백 없이 입력해주세요 :)");
+        this.showMes="";
+        this.$refs.userId.focus();
+      }
+
+      let value = {
+        userId: this.userId,
+      }
+
+      this.$axios.post('/api/test/gSearchId', value)
+          .then(({ data }) => {
+            this.chkId = data.length;
+
+            if(_.isEqual(data.length, 1)) {
+              this.showMes = "사용할 수 없는 아이디 입니다. :)";
+              this.$refs.userId.focus();
+              return;
+            } else{
+              this.showMes = "사용 가능한 아이디 입니다. :)";
+              this.$refs.userPass.focus();
+              return;
+            }
+
+          });
+    },
+
+    // 이메일 도메인 선택
+    EamilDomEv() {
       if (_.isEqual(this.searchEmail, "선택")) {
         this.searchEm = "";
         return;
@@ -328,6 +398,46 @@ export default{
         return;
       } else {
         this.searchEm = this.searchEmail;
+        return;
+      }
+    },
+
+    // 비밀번호 체크 :: 한글 X, 문자`숫자`특수문자 필수 포함, 8 ~ 20자
+    checkPass() {
+
+      const num = this.userPass.search(/[0-9]/g);
+      const eng = this.userPass.search(/[a-z]/gi);
+      const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+      // if(_.isEqual(this.chkId, 1) || _.isEmpty(this.userId)) {
+      //   alert("아이디를 체크해주세요 :)");
+      //   console.log(this.chkId);
+      //   this.$refs.userId.focus();
+      //   return;
+
+      if (_.isEmpty(this.userPass)) {
+        alert("비밀번호를 입력해주세요 :)");
+        this.$refs.userPass.focus();
+        return;
+      } else if(this.userPass.length < 8 || this.userPass.length > 20) {
+        alert("비밀번호는 8자리~20자리 이내로 입력해주세요 :)");
+        this.$refs.userPass.focus();
+        return;
+      } else if (num < 0 || eng < 0 || spe < 0) {
+        alert("비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요 :)");
+        this.$refs.userPass.focus();
+        return;
+      } else if(this.userPass.search(/\s/) != -1) {
+        alert("비밀번호는 공백 없이 입력해주세요 :)");
+        this.$refs.userPass.focus();
+      }
+    },
+
+    // 재입력 비밀번호 체크
+    checkPass2() {
+      if(!_.isEqual(this.userPass, this.userPass2)) {
+        alert("비밀번호가 일치하지 않습니다 :(");
+        this.$refs.userPass2.focus();
         return;
       }
     },
@@ -345,111 +455,54 @@ export default{
     chkPri() {
       this.priChk = !this.priChk;
     },
-    // 전체 체크
+
+    // 필수 이용 약관 전체 체크
     chkAll() {
-
-      if(this.allChk === false) {
-        this.termChk = true;
-        this.priChk = true;
-        this.allChk = true;
-      } else {
-        this.termChk = false;
-        this.priChk = false;
-        this.allChk = false;
-      }
-    },
-
-    // 아이디 체크 :: 한글 X, 6 ~ 15자
-    checkId() {
-
-      const num = this.userId.search(/[0-9]/g);
-      const eng = this.userId.search(/[a-z]/gi);
-
-      console.log("총 길이 :: " + this.userId.length);
-
-      if(this.userId.length < 6 || this.userId.length > 15 ) {
-        alert("아이디는 6자리~15자리 이내로 입력해주세요 :)");
-        this.$refs.userId.focus();
-        return;
-      } else if(eng < 0 && num < 0) {
-        alert("아이디는 영문, 숫자를 이용하여 입력해주세요 :)");
-        this.$refs.userId.focus();
-        return;
-      } else if(this.userId.search(/\s/) != -1) {
-        alert("아이디는 공백 없이 입력해주세요 :)");
-        this.$refs.userId.focus();
-      }
-    },
-
-    // 비밀번호 체크 :: 한글 X, 문자`숫자`특수문자 필수 포함, 8 ~ 20자
-    checkPass() {
-
-      const num = this.userPass.search(/[0-9]/g);
-      const eng = this.userPass.search(/[a-z]/gi);
-      const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-      console.log("총 길이 :: " + this.userPass.length);
-
-      if(this.userPass.length < 8 || this.userPass.length > 20) {
-        alert("비밀번호는 8자리~20자리 이내로 입력해주세요 :)");
-        this.$refs.userPass.focus();
-        return;
-      } else if (num < 0 || eng < 0 || spe < 0) {
-        alert("비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요 :)");
-        this.$refs.userPass.focus();
-        return;
-      } else if(this.userPass.search(/\s/) != -1) {
-        alert("비밀번호는 공백 없이 입력해주세요 :)");
-        this.$refs.userPass.focus();
-      }
-    },
-
-    // 재입력 비밀번호 체크
-    checkPass2() {
-      if(!_.isEqual(this.userPass, this.userPass2)) {
-        alert("비밀번호가 일치하지 않습니다.");
-        this.$refs.userPass2.focus();
-        return;
-      }
+      this.termChk = !this.allChk;
+      this.priChk = !this.allChk;
+      this.allChk = !this.allChk;
     },
 
     // 회원가입 버튼 연동
     saveUserInfo() {
+      // this.checkId();
+      // this.checkPass();
+      // this.checkPass2();
       if (_.isEmpty(this.userId)) {
-        alert("아이디를 입력해주세요");
+        alert("아이디를 입력해주세요 :)");
         this.$refs.userId.focus();
         return;
       } else if (_.isEmpty(this.userPass)) {
-        alert("비밀번호를 입력해주세요");
+        alert("비밀번호를 입력해주세요 :)");
         this.$refs.userPass.focus();
         return;
       } else if (_.isEmpty(this.userPass2)) {
-        alert("비밀번호를 재입력해주세요");
+        alert("비밀번호를 재입력해주세요 :)");
         this.$refs.userPass2.focus();
         return;
       } else if (_.isEmpty(this.userName)) {
-        alert("이름을 입력해주세요");
+        alert("이름을 입력해주세요 :)");
         this.$refs.userName.focus();
         return;
       } else if (_.isEmpty(this.userPhone1)) {
-        alert("전화번호를 입력해주세요");
+        alert("전화번호를 입력해주세요 :)");
         this.$refs.userPhone1.focus();
         return;
       } else if (_.isEmpty(this.userPhone2)) {
-        alert("전화번호를 입력해주세요");
+        alert("전화번호를 입력해주세요 :)");
         this.$refs.userPhone2.focus();
         return;
       } else if (_.isEmpty(this.userPhone3)) {
-        alert("전화번호를 입력해주세요");
+        alert("전화번호를 입력해주세요 :)");
         this.$refs.userPhone3.focus();
         return;
       } else if (_.isEmpty(this.zonecode)) {
-        alert("주소를 입력해주세요");
+        alert("주소를 입력해주세요 :)");
         this.$refs.zonecode.focus();
         return;
-      } else if (_.isEmpty(this.datailAddress)) {
-        alert("상세주소를 입력해주세요");
-        this.$refs.datailAddress.focus();
+      } else if (this.termChk === false) {
+        alert("약관동의를 모두 체크해주세요 :)");
+        this.isPanelOpen = true;
         return;
       }
     },

@@ -41,5 +41,23 @@ public class MariaTestController {
         return entity;
     }
 
+    @RequestMapping("gSearchId")
+    public ResponseEntity<List<MariaTestDto>> getSearchId(@RequestBody MariaTestDto param) throws Exception  {
+        log.info(param.getUserId());
+
+        List<MariaTestDto> contDto = null;
+
+        ResponseEntity<List<MariaTestDto>> entity = null;
+
+        try {
+            contDto = mariaTestService.getSearchId(param);
+            entity = new ResponseEntity<>(contDto, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("ctl ::::::: " + e.getMessage());
+            throw e;
+        }
+        return entity;
+    }
+
 
 }

@@ -13,7 +13,7 @@ public interface MariaTestDao {
 
      public List<MariaTestDto> selectTestMariaDb(MariaTestDto param) throws Exception ;
 
-
+     public List<MariaTestDto> selectSearchId(MariaTestDto param) throws Exception;
 
 
 }
