@@ -1,6 +1,6 @@
 <template>
-  <div class="row">
-    <font-awesome-icon icon="user-secret" /> MainPageHome
+  <div class="row" style="width:100%">
+    <font-awesome-icon icon="user-secret" />
 
 
 

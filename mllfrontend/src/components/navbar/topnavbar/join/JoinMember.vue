@@ -1,4 +1,4 @@
-<template>
+<template xmlns:active="http://www.w3.org/1999/xhtml">
     <div class="row">
       <div class="d-flex justify-content-center">
         <h4>
@@ -21,19 +21,9 @@
             placeholder="아이디 입력"
             ref="userId"
             style="width:350px"
-            @change="checkId()"
+            @keyup.enter="checkId()"
         />
-<!--        <span class="input-group-btn">-->
-<!--          <button-->
-<!--              type="button"-->
-<!--              class="btn btn-light border"-->
-<!--              style="width: 100px;background-color: #FFD89C;"-->
-<!--              ref="chkId"-->
 
-<!--          >-->
-<!--            중복확인-->
-<!--          </button>-->
-<!--        </span>-->
       </div>
       <div class="d-flex justify-content-center" style="color:red;">
         <i> {{ showMes }} </i>
@@ -45,12 +35,25 @@
       <div class="d-flex justify-content-center" >
         <input
           v-model="userPass"
-          class="form-control box_size"
-          type="text"
+          class="form-control "
+          type="password"
           maxlength="20"
           placeholder="비밀번호 입력"
           ref="userPass"
-          @change="checkPass()"
+          style="width:310px"
+          @keyup.enter="checkPass()"
+        />
+        <font-awesome-icon
+            v-if="!showPass"
+            @click="showPassword()"
+            style="cursor:pointer; width:30px; margin-left:10px; margin-top:7px"
+            :icon="['far', 'eye-slash']"
+        />
+        <font-awesome-icon
+            v-if="showPass"
+            @click="showPassword()"
+            style="cursor:pointer; width:30px; margin-left:10px; margin-top:7px"
+            :icon="['far', 'eye']"
         />
       </div>
 
@@ -59,14 +62,30 @@
       </div>
       <div class="d-flex justify-content-center">
         <input
-          v-model="userPass2"
-          class="form-control box_size"
-          type="text"
+          v-model="userPassChk"
+          class="form-control "
+          type="password"
           maxlength="20"
-          placeholder="비밀번호 재입력"
-          ref="userPass2"
-          @change="checkPass2()"
+          placeholder="비밀번호  재입력"
+          ref="userPassChk"
+          style="width:310px"
+          @keyup.enter="checkPassChk()"
         />
+        <font-awesome-icon
+            v-if="!showPassChk"
+            @click="showPasswordChk()"
+            style="cursor:pointer; width:30px; margin-left:10px; margin-top:7px"
+            :icon="['far', 'eye-slash']"
+        />
+        <font-awesome-icon
+            v-if="showPassChk"
+            @click="showPasswordChk()"
+            style="cursor:pointer; width:30px; margin-left:10px; margin-top:7px"
+            :icon="['far', 'eye']"
+        />
+      </div>
+      <div class="d-flex justify-content-center" style="color:red;">
+        <i> {{ showPassMes }} </i>
       </div>
 
       <div class="d-flex justify-content-center" style="margin-top:15px;">
@@ -80,6 +99,7 @@
           maxlength="20"
           placeholder="이름을 입력해주세요"
           ref="userName"
+          @keyup.enter="checkName()"
         />
       </div>
 
@@ -89,47 +109,51 @@
 
       <div class="d-flex justify-content-center">
         <input
-          v-model="userPhone1"
+          v-model="userHp1"
           class="form-control "
           type="text"
           maxlength="3"
           placeholder="010"
           style="width: 95px;"
-          ref="userPhone1"
+          ref="userHp1"
+          @keyup.enter="checkHp()"
         />
         <i style="width:30px; margin-top:7px"> - </i>
         <input
-          v-model="userPhone2"
+          v-model="userHp2"
+          class="form-control"
+          type="text"
+          maxlength="4"
+          placeholder=""
+          style="width: 95px;"
+          ref="userHp2"
+          @keyup.enter="checkHp()"
+        />
+        <i style="width:30px; margin-top:7px"> - </i>
+        <input
+          v-model="userHp3"
           class="form-control "
           type="text"
           maxlength="4"
           placeholder=""
           style="width: 95px;"
-          ref="userPhone2"
-        />
-        <i style="width:30px; margin-top:7px"> - </i>
-        <input
-          v-model="userPhone3"
-          class="form-control "
-          type="text"
-          maxlength="4"
-          placeholder=""
-          style="width: 95px;"
-          ref="userPhone3"
+          ref="userHp3"
+          @keyup.enter="checkHp()"
         />
       </div>
       <div class="d-flex justify-content-center title_margin">
         <i class="title_line">주소</i>
       </div>
-      <div class="d-flex justify-content-center ">
+      <div class="d-flex justify-content-center">
         <input
-            v-model="zonecode"
+            v-model="userZc"
             class="form-control"
             type="text"
             maxlength="20"
             placeholder="우편번호"
             style="width: 250px;"
-            ref="zonecode"
+            ref="userZc"
+            @keyup.enter="checkAdd()"
             readonly
         />
         <span class="input-group-btn">
@@ -137,6 +161,7 @@
               type="button"
               class="btn btn-light border"
               style="width: 100px;background-color: #FFD89C;"
+              ref="openPostBtn"
               @click="openPostcode()"
           >
             검색
@@ -146,7 +171,7 @@
 
       <div class="d-flex justify-content-center" style="margin-top:5px;">
         <input
-            v-model="roadAddress"
+            v-model="userAdd"
             class="form-control box_size"
             type="text"
             maxlength="20"
@@ -156,12 +181,13 @@
       </div>
       <div class="d-flex justify-content-center" style="margin-top:5px;">
         <input
-            v-model="datailAddress"
+            v-model="userAddDtl"
             class="form-control box_size"
             type="text"
             maxlength="20"
             placeholder="상세주소"
-            ref="datailAddress"
+            ref="userAddDtl"
+            @keyup.enter="checkAdd()"
         />
     </div>
 
@@ -170,12 +196,12 @@
     </div>
     <div class="d-flex justify-content-center">
         <input
-            v-model="emailAdd"
+            v-model="userEmailAdd"
             class="form-control"
             type="text"
             maxlength="20"
             placeholder="이메일 입력"
-            ref="emailAdd"
+            ref="userEmailAdd"
             style="width:125px"
 
         />
@@ -188,6 +214,7 @@
               placeholder=""
               ref="searchEm"
               style="width:100px"
+              @keyup.enter="checkEmailDom()"
           />
         </span>
         <span v-else>
@@ -206,7 +233,7 @@
             ref="searchEmail"
             class="form-control"
             style="width:100px"
-            @change="EamilDomEv()"
+            @change="emailDomEv()"
         >
           <option
               v-for="option in searchEmailOptions"
@@ -220,6 +247,31 @@
     <div class="d-flex justify-content-center title_margin">
       <i class="title_line">성별</i>
     </div>
+
+      <div class="d-flex justify-content-center title_margin">
+          <input
+              v-model="userGenM"
+              type="button"
+              class="input-group-addon"
+              :class="{ active: isMale }"
+              maxlength="20"
+              placeholder=""
+              ref="userGenM"
+              style="width:175px"
+              @click="checkUserGenM()"
+          />
+        <input
+            v-model="userGenF"
+            class="input-group-addon"
+            :class="{ active: isFeMale }"
+            type="button"
+            maxlength="20"
+            placeholder=""
+            ref="userGenF"
+            style="width:175px"
+            @click="checkUserGenF()"
+        />
+      </div>
 
     <div class="d-flex justify-content-center title_margin">
       <i class="title_line cur" style="color:red" @click="openPanel()">
@@ -290,15 +342,15 @@ export default{
     return {
       userId: "",
       userPass: "",
-      userPass2: "",
+      userPassChk: "",
       userName: "",
-      userPhone1: "",
-      userPhone2: "",
-      userPhone3: "",
-      zonecode: "",
-      roadAddress: "",
-      datailAddress:"",
-      emailAdd: "",
+      userHp1: "",
+      userHp2: "",
+      userHp3: "",
+      userZc: "",
+      userAdd: "",
+      userAddDtl:"",
+      userEmailAdd: "",
       searchEm: "",
       searchEmail: "선택",
       searchEmailOptions: [
@@ -309,15 +361,27 @@ export default{
         { value: 'nate.com' },
         { value: '직접입력' },
       ],
+      userGenM: "남",
+      userGenF: "여",
       isPanelOpen: false,
       termChk: false,
       priChk: false,
       allChk: false,
-      searchId: [],
-      chkId: null,
       showMes: "",
-      test22: false,
-      isTest:false,
+      showPassMes: "",
+      showPass: false,
+      showPassChk: false,
+      chkId: false,
+      chkPass: false,
+      chkPassChk: false,
+      chkName: false,
+      chkHp: false,
+      chkAdd: false,
+      chkEmail: false,
+      chkGen: false,
+      isMale:false,
+      isFeMale:false,
+
     };
   },
 
@@ -331,8 +395,8 @@ export default{
     openPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          this.zonecode = data.zonecode;
-          this.roadAddress = data.roadAddress;
+          this.userZc = data.zonecode;
+          this.userAdd = data.roadAddress;
         },
       }).open();
     },
@@ -340,30 +404,29 @@ export default{
     // 아이디 체크 :: 한글 X, 6 ~ 15자
     checkId() {
 
-      //const num = this.userId.search(/[0-9]/g);
-      //const eng = this.userId.search(/[a-z]/gi);
       const kor = this.userId.search(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g);
-      const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      const spe = this.userId.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
       if (_.isEmpty(this.userId)) {
-        alert("먼저 아이디를 입력해주세요 :)");
+        alert("아이디를 입력해주세요 :)");
         this.showMes="";
         this.$refs.userId.focus();
         return;
       } else if(this.userId.length < 6 || this.userId.length > 15 ) {
         alert("아이디는 6자리~15자리 이내로 입력해주세요 :)");
-        this.showMes="";
+        this.showMes="사용할 수 없는 아이디 입니다. :(";
         this.$refs.userId.focus();
         return;
       } else if( kor > -1 || spe > -1) {
         alert("아이디는 영문과 숫자만 이용하여 입력해주세요 :)");
-        this.showMes="";
+        this.showMes="사용할 수 없는 아이디 입니다. :(";
         this.$refs.userId.focus();
         return;
       } else if(this.userId.search(/\s/) != -1) {
         alert("아이디는 공백 없이 입력해주세요 :)");
-        this.showMes="";
+        this.showMes="사용할 수 없는 아이디 입니다. :(";
         this.$refs.userId.focus();
+        return;
       }
 
       let value = {
@@ -372,14 +435,15 @@ export default{
 
       this.$axios.post('/api/test/gSearchId', value)
           .then(({ data }) => {
-            this.chkId = data.length;
-
+            //this.chkId = data.length;
             if(_.isEqual(data.length, 1)) {
               this.showMes = "사용할 수 없는 아이디 입니다. :)";
+              alert("아이디를 확인해주세요 :)")
               this.$refs.userId.focus();
               return;
             } else{
               this.showMes = "사용 가능한 아이디 입니다. :)";
+              this.chkId = true;
               this.$refs.userPass.focus();
               return;
             }
@@ -387,9 +451,131 @@ export default{
           });
     },
 
+    // 비밀번호 보이기
+    showPassword() {
+      this.showPass = !this.showPass;
+      if (this.showPass) {
+        this.$refs.userPass.type = 'text';
+      } else {
+        this.$refs.userPass.type = 'password';
+      }
+    },
+
+    // 재입력 비밀번호 보이기
+    showPasswordChk() {
+      this.showPassChk = !this.showPassChk;
+      if (this.showPassChk) {
+        this.$refs.userPassChk.type = 'text';
+      } else {
+        this.$refs.userPassChk.type = 'password';
+      }
+    },
+
+    // 비밀번호 체크 :: 한글 X, 문자`숫자`특수문자 필수 포함, 8 ~ 20자
+    checkPass() {
+
+      const kor = this.userPass.search(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g);
+      const num = this.userPass.search(/[0-9]/g);
+      const eng = this.userPass.search(/[a-z]/gi);
+      const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+      if(this.chkId == false) {
+        alert("아이디를 확인해주세요 :)");
+        this.$refs.userId.focus();
+        return;
+      } else if (_.isEmpty(this.userPass)) {
+        alert("비밀번호를 입력해주세요 :)");
+        this.$refs.userPass.focus();
+        return;
+      } else if(this.userPass.length < 8 || this.userPass.length > 20) {
+        alert("비밀번호는 8자리~20자리 이내로 입력해주세요 :)");
+        this.$refs.userPass.focus();
+        return;
+      } else if ((num < 0 || eng < 0 || spe < 0) || kor > -1) {
+        alert("비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요 :)");
+        this.$refs.userPass.focus();
+        return;
+      } else if(this.userPass.search(/\s/) != -1) {
+        alert("비밀번호는 공백 없이 입력해주세요 :)");
+        this.$refs.userPass.focus();
+        return;
+      } else {
+        this.$refs.userPassChk.focus();
+        this.chkPass = true;
+        return;
+      }
+    },
+
+    // 재입력 비밀번호 체크
+    checkPassChk() {
+      if (_.isEmpty(this.userPassChk)){
+        alert("비밀번호를 재입력 해주세요 :)");
+        this.$refs.userPassChk.focus();
+        return;
+      } else if(!_.isEqual(this.userPass, this.userPassChk)) {
+        this.showPassMes="비밀번호가 일치하지 않습니다 :(";
+        alert("재입력 비밀번호를 확인해주세요 :)");
+        this.$refs.userPassChk.focus();
+        return;
+      } else {
+        this.showPassMes="";
+        this.chkPassChk = true;
+        this.$refs.userName.focus();
+        return;
+      }
+    },
+
+    // 이름 체크
+    checkName() {
+      if(_.isEmpty(this.userName)) {
+        alert("이름을 입력해주세요 :)");
+        this.$refs.userName.focus();
+        return;
+      } else {
+        this.$refs.userHp1.focus();
+        this.chkName = true;
+        return;
+      }
+    },
+
+    // 핸드폰번호 체크
+    checkHp() {
+      if(_.isEmpty(this.userHp1) || this.userHp1.length < 3) {
+        alert("번호 앞자리를 입력해주세요 :)");
+        this.$refs.userHp1.focus();
+        return;
+      } else if(_.isEmpty(this.userHp2) || this.userHp2.length < 3) {
+        alert("번호 중간자리를 입력해주세요 :)");
+        this.$refs.userHp2.focus();
+        return;
+      } else if(_.isEmpty(this.userHp3) || this.userHp3.length < 4) {
+        alert("번호 끝자리를 입력해주세요 :)");
+        this.$refs.userHp3.focus();
+        return;
+      } else {
+        this.$refs.openPostBtn.focus();
+        this.chkHp = true;
+        return;
+      }
+    },
+
+    // 주소 체크
+    checkAdd() {
+      if(_.isEmpty(this.userZc)) {
+        alert("주소 검색을 해주세요 :)");
+        this.$refs.openPostBtn.focus();
+        return;
+      } else {
+        this.$refs.userEmailAdd.focus();
+        this.chkAdd = true;
+        return;
+      }
+
+    },
+
     // 이메일 도메인 선택
-    EamilDomEv() {
-      if (_.isEqual(this.searchEmail, "선택")) {
+    emailDomEv() {
+      if(_.isEqual(this.searchEmail, "선택")) {
         this.searchEm = "";
         return;
       } else if (_.isEqual(this.searchEmail, "직접입력")) {
@@ -401,47 +587,27 @@ export default{
         return;
       }
     },
-
-    // 비밀번호 체크 :: 한글 X, 문자`숫자`특수문자 필수 포함, 8 ~ 20자
-    checkPass() {
-
-      const num = this.userPass.search(/[0-9]/g);
-      const eng = this.userPass.search(/[a-z]/gi);
-      const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-      // if(_.isEqual(this.chkId, 1) || _.isEmpty(this.userId)) {
-      //   alert("아이디를 체크해주세요 :)");
-      //   console.log(this.chkId);
-      //   this.$refs.userId.focus();
-      //   return;
-
-      if (_.isEmpty(this.userPass)) {
-        alert("비밀번호를 입력해주세요 :)");
-        this.$refs.userPass.focus();
+    // 이메일 :: 직접입력시 체크
+    checkEmailDom() {
+      if(_.isEmpty(this.searchEm)) {
+        this.$refs.searchEm.focus();
         return;
-      } else if(this.userPass.length < 8 || this.userPass.length > 20) {
-        alert("비밀번호는 8자리~20자리 이내로 입력해주세요 :)");
-        this.$refs.userPass.focus();
-        return;
-      } else if (num < 0 || eng < 0 || spe < 0) {
-        alert("비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요 :)");
-        this.$refs.userPass.focus();
-        return;
-      } else if(this.userPass.search(/\s/) != -1) {
-        alert("비밀번호는 공백 없이 입력해주세요 :)");
-        this.$refs.userPass.focus();
-      }
-    },
-
-    // 재입력 비밀번호 체크
-    checkPass2() {
-      if(!_.isEqual(this.userPass, this.userPass2)) {
-        alert("비밀번호가 일치하지 않습니다 :(");
-        this.$refs.userPass2.focus();
+      } else {
         return;
       }
+
     },
 
+    checkUserGenM() {
+      this.isMale = !this.isMale;
+      this.isFeMale = false;
+    },
+    checkUserGenF() {
+      this.isFeMale = !this.isFeMale;
+      this.isMale = false;
+    },
+
+    // 이용약관 보이기
     openPanel() {
       this.isPanelOpen = !this.isPanelOpen;
     },
@@ -465,40 +631,47 @@ export default{
 
     // 회원가입 버튼 연동
     saveUserInfo() {
-      // this.checkId();
-      // this.checkPass();
-      // this.checkPass2();
       if (_.isEmpty(this.userId)) {
-        alert("아이디를 입력해주세요 :)");
-        this.$refs.userId.focus();
+         alert("아이디를 입력해주세요 :)");
+         this.$refs.userId.focus();
         return;
+      } else if (this.chkId == false) {
+         this.checkId();
+         return;
       } else if (_.isEmpty(this.userPass)) {
         alert("비밀번호를 입력해주세요 :)");
         this.$refs.userPass.focus();
         return;
-      } else if (_.isEmpty(this.userPass2)) {
+      } else if(this.chkPass == false) {
+        this.checkPass();
+        return;
+      } else if (_.isEmpty(this.userPassChk)) {
         alert("비밀번호를 재입력해주세요 :)");
-        this.$refs.userPass2.focus();
+        this.$refs.userPassChk.focus();
+        return;
+      } else if (this.chkPassChk == false) {
+        this.checkPassChk();
         return;
       } else if (_.isEmpty(this.userName)) {
-        alert("이름을 입력해주세요 :)");
-        this.$refs.userName.focus();
+        // alert("이름을 입력해주세요 :)");
+        // this.$refs.userName.focus();
+        this.checkName();
         return;
-      } else if (_.isEmpty(this.userPhone1)) {
+      } else if (_.isEmpty(this.userHp1)) {
         alert("전화번호를 입력해주세요 :)");
-        this.$refs.userPhone1.focus();
+        this.$refs.userHp1.focus();
         return;
-      } else if (_.isEmpty(this.userPhone2)) {
+      } else if (_.isEmpty(this.userHp2)) {
         alert("전화번호를 입력해주세요 :)");
-        this.$refs.userPhone2.focus();
+        this.$refs.userHp2.focus();
         return;
-      } else if (_.isEmpty(this.userPhone3)) {
+      } else if (_.isEmpty(this.userHp3)) {
         alert("전화번호를 입력해주세요 :)");
-        this.$refs.userPhone3.focus();
+        this.$refs.userHp3.focus();
         return;
-      } else if (_.isEmpty(this.zonecode)) {
+      } else if (_.isEmpty(this.userZc)) {
         alert("주소를 입력해주세요 :)");
-        this.$refs.zonecode.focus();
+        this.$refs.userZc.focus();
         return;
       } else if (this.termChk === false) {
         alert("약관동의를 모두 체크해주세요 :)");
@@ -551,6 +724,10 @@ export default{
   display: flex;
   justify-content: flex-start;
   font-size: small;
+}
+
+.active {
+  background-color: #FFD89C;
 }
 
 
