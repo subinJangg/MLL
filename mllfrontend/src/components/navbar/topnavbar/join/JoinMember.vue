@@ -21,12 +21,13 @@
             placeholder="아이디 입력"
             ref="userId"
             style="width:350px"
-            @keyup.enter="checkId()"
+
+            @change="checkId()"
         />
 
       </div>
       <div class="d-flex justify-content-center" style="color:red;">
-        <i> {{ showMes }} </i>
+        <i> {{ showMsg }} </i>
       </div>
 
       <div class="d-flex justify-content-center title_margin">
@@ -41,7 +42,7 @@
           placeholder="비밀번호 입력"
           ref="userPass"
           style="width:310px"
-          @keyup.enter="checkPass()"
+          @change="checkPass()"
         />
         <font-awesome-icon
             v-if="!showPass"
@@ -85,7 +86,7 @@
         />
       </div>
       <div class="d-flex justify-content-center" style="color:red;">
-        <i> {{ showPassMes }} </i>
+        <i> {{ showPassMsg }} </i>
       </div>
 
       <div class="d-flex justify-content-center" style="margin-top:15px;">
@@ -116,7 +117,7 @@
           placeholder="010"
           style="width: 95px;"
           ref="userHp1"
-          @keyup.enter="checkHp()"
+          @keyup.enter="checkHp1()"
         />
         <i style="width:30px; margin-top:7px"> - </i>
         <input
@@ -127,7 +128,7 @@
           placeholder=""
           style="width: 95px;"
           ref="userHp2"
-          @keyup.enter="checkHp()"
+          @keyup.enter="checkHp2()"
         />
         <i style="width:30px; margin-top:7px"> - </i>
         <input
@@ -138,7 +139,7 @@
           placeholder=""
           style="width: 95px;"
           ref="userHp3"
-          @keyup.enter="checkHp()"
+          @keyup.enter="checkHp3()"
         />
       </div>
       <div class="d-flex justify-content-center title_margin">
@@ -203,10 +204,11 @@
             placeholder="이메일 입력"
             ref="userEmailAdd"
             style="width:125px"
+            @keyup.enter="checkEmailAdd()"
 
         />
       <i style="width:25px; margin-top:7px"> @ </i>
-        <span v-if="searchEmail == '직접입력'">
+        <span v-if="searchEmDom == '직접입력'">
           <input
               v-model="searchEm"
               class="form-control"
@@ -223,20 +225,20 @@
             class="form-control"
             maxlength="20"
             placeholder=""
-            ref="searchEmail"
+            ref="searchEm"
             style="width:100px"
             disabled
         />
           </span>
         <select
-            v-model="searchEmail"
-            ref="searchEmail"
+            v-model="searchEmDom"
+            ref="searchEmDom"
             class="form-control"
             style="width:100px"
             @change="emailDomEv()"
         >
           <option
-              v-for="option in searchEmailOptions"
+              v-for="option in searchEmDomOptions"
               :key="option.value"
               :value="option.value"
           >
@@ -352,8 +354,8 @@ export default{
       userAddDtl:"",
       userEmailAdd: "",
       searchEm: "",
-      searchEmail: "선택",
-      searchEmailOptions: [
+      searchEmDom: "선택",
+      searchEmDomOptions: [
         { value: '선택' },
         { value: 'naver.com' },
         { value: 'gmail.com' },
@@ -367,17 +369,20 @@ export default{
       termChk: false,
       priChk: false,
       allChk: false,
-      showMes: "",
-      showPassMes: "",
+      showMsg: "",
+      showPassMsg: "",
       showPass: false,
       showPassChk: false,
       chkId: false,
       chkPass: false,
       chkPassChk: false,
       chkName: false,
-      chkHp: false,
+      chkHp1: false,
+      chkHp2: false,
+      chkHp3: false,
       chkAdd: false,
-      chkEmail: false,
+      chkEmailAdd: false,
+      chkEmailDom: false,
       chkGen: false,
       isMale:false,
       isFeMale:false,
@@ -403,30 +408,32 @@ export default{
 
     // 아이디 체크 :: 한글 X, 6 ~ 15자
     checkId() {
-
-      const kor = this.userId.search(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g);
-      const spe = this.userId.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      const userIdPattern = /^[a-z0-9]+$/;
 
       if (_.isEmpty(this.userId)) {
         alert("아이디를 입력해주세요 :)");
-        this.showMes="";
+        this.showMsg="";
         this.$refs.userId.focus();
-        return;
+        //this.chkId = false;
+        return false;
       } else if(this.userId.length < 6 || this.userId.length > 15 ) {
         alert("아이디는 6자리~15자리 이내로 입력해주세요 :)");
-        this.showMes="사용할 수 없는 아이디 입니다. :(";
+        this.showMsg="사용할 수 없는 아이디 입니다. :(";
         this.$refs.userId.focus();
-        return;
-      } else if( kor > -1 || spe > -1) {
-        alert("아이디는 영문과 숫자만 이용하여 입력해주세요 :)");
-        this.showMes="사용할 수 없는 아이디 입니다. :(";
+        //this.chkId = false;
+        return false;
+      } else if( !userIdPattern.test(this.userId)) {
+        alert("아이디는 소문자와 숫자만 이용하여 입력해주세요 :)");
+        this.showMsg="사용할 수 없는 아이디 입니다. :(";
         this.$refs.userId.focus();
-        return;
+        //this.chkId = false;
+        return false;
       } else if(this.userId.search(/\s/) != -1) {
         alert("아이디는 공백 없이 입력해주세요 :)");
-        this.showMes="사용할 수 없는 아이디 입니다. :(";
+        this.showMsg="사용할 수 없는 아이디 입니다. :(";
         this.$refs.userId.focus();
-        return;
+        this.chkId = false;
+        return false;
       }
 
       let value = {
@@ -437,12 +444,13 @@ export default{
           .then(({ data }) => {
             //this.chkId = data.length;
             if(_.isEqual(data.length, 1)) {
-              this.showMes = "사용할 수 없는 아이디 입니다. :)";
-              alert("아이디를 확인해주세요 :)")
+              this.showMsg = "사용할 수 없는 아이디 입니다. :)";
+              alert("아이디를 확인해주세요 :)");
+              //this.chkId = false;
               this.$refs.userId.focus();
-              return;
+              return false;
             } else{
-              this.showMes = "사용 가능한 아이디 입니다. :)";
+              this.showMsg = "사용 가능한 아이디 입니다. :)";
               this.chkId = true;
               this.$refs.userPass.focus();
               return;
@@ -451,7 +459,7 @@ export default{
           });
     },
 
-    // 비밀번호 보이기
+    // 비밀번호 보이기 :: 버튼
     showPassword() {
       this.showPass = !this.showPass;
       if (this.showPass) {
@@ -461,7 +469,7 @@ export default{
       }
     },
 
-    // 재입력 비밀번호 보이기
+    // 재입력 비밀번호 보이기 :: 버튼
     showPasswordChk() {
       this.showPassChk = !this.showPassChk;
       if (this.showPassChk) {
@@ -473,11 +481,7 @@ export default{
 
     // 비밀번호 체크 :: 한글 X, 문자`숫자`특수문자 필수 포함, 8 ~ 20자
     checkPass() {
-
-      const kor = this.userPass.search(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g);
-      const num = this.userPass.search(/[0-9]/g);
-      const eng = this.userPass.search(/[a-z]/gi);
-      const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      const userPassPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/;
 
       if(this.chkId == false) {
         alert("아이디를 확인해주세요 :)");
@@ -491,7 +495,7 @@ export default{
         alert("비밀번호는 8자리~20자리 이내로 입력해주세요 :)");
         this.$refs.userPass.focus();
         return;
-      } else if ((num < 0 || eng < 0 || spe < 0) || kor > -1) {
+      } else if (!userPassPattern.test(this.userPass)) {
         alert("비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요 :)");
         this.$refs.userPass.focus();
         return;
@@ -511,14 +515,14 @@ export default{
       if (_.isEmpty(this.userPassChk)){
         alert("비밀번호를 재입력 해주세요 :)");
         this.$refs.userPassChk.focus();
-        return;
+        return false;
       } else if(!_.isEqual(this.userPass, this.userPassChk)) {
-        this.showPassMes="비밀번호가 일치하지 않습니다 :(";
+        this.showPassMsg="비밀번호가 일치하지 않습니다 :(";
         alert("재입력 비밀번호를 확인해주세요 :)");
         this.$refs.userPassChk.focus();
-        return;
+        return false;
       } else {
-        this.showPassMes="";
+        this.showPassMsg="";
         this.chkPassChk = true;
         this.$refs.userName.focus();
         return;
@@ -527,10 +531,16 @@ export default{
 
     // 이름 체크
     checkName() {
+      const userNamePattern = /^[가-힣]+$/;
+
       if(_.isEmpty(this.userName)) {
         alert("이름을 입력해주세요 :)");
         this.$refs.userName.focus();
-        return;
+        return false;
+      } else if (!userNamePattern.test(this.userName)) {
+        alert("이름은 한글만 입력 가능합니다 :)");
+        this.$refs.userName.focus();
+        return false;
       } else {
         this.$refs.userHp1.focus();
         this.chkName = true;
@@ -538,23 +548,59 @@ export default{
       }
     },
 
-    // 핸드폰번호 체크
-    checkHp() {
+    // 핸드폰번호 1 체크
+    checkHp1() {
+      const hpPattern = /^[0-9]+$/;
+
       if(_.isEmpty(this.userHp1) || this.userHp1.length < 3) {
         alert("번호 앞자리를 입력해주세요 :)");
         this.$refs.userHp1.focus();
         return;
-      } else if(_.isEmpty(this.userHp2) || this.userHp2.length < 3) {
+      } else if (!hpPattern.test(this.userHp1)) {
+        alert("숫자만 입력해주세요 :)");
+        this.$refs.userHp1.focus();
+        return;
+      } else {
+        this.$refs.userHp2.focus();
+        this.chkHp1 = true;
+        return;
+      }
+    },
+
+    // 핸드폰번호 2 체크
+    checkHp2() {
+      const hpPattern = /^[0-9]+$/;
+
+      if(_.isEmpty(this.userHp2) || this.userHp2.length < 3) {
         alert("번호 중간자리를 입력해주세요 :)");
         this.$refs.userHp2.focus();
         return;
-      } else if(_.isEmpty(this.userHp3) || this.userHp3.length < 4) {
+      } else if (!hpPattern.test(this.userHp2)) {
+        alert("숫자만 입력해주세요 :)");
+        this.$refs.userHp2.focus();
+        return;
+      } else {
+        this.$refs.userHp3.focus();
+        this.chkHp2 = true;
+        return;
+      }
+    },
+
+    // 핸드폰번호 3 체크
+    checkHp3() {
+      const hpPattern = /^[0-9]+$/;
+
+      if(_.isEmpty(this.userHp3) || this.userHp3.length < 4) {
         alert("번호 끝자리를 입력해주세요 :)");
+        this.$refs.userHp3.focus();
+        return;
+      } else if (!hpPattern.test(this.userHp3)) {
+        alert("숫자만 입력해주세요 :)");
         this.$refs.userHp3.focus();
         return;
       } else {
         this.$refs.openPostBtn.focus();
-        this.chkHp = true;
+        this.chkHp3 = true;
         return;
       }
     },
@@ -570,38 +616,72 @@ export default{
         this.chkAdd = true;
         return;
       }
+    },
 
+    // 이메일 주소 입력 체크
+    checkEmailAdd() {
+      const userEmailAddPattern = /^[a-z0-9]+$/;
+
+      if(_.isEmpty(this.userEmailAdd)) {
+        alert("이메일 주소를 입력해주세요 :)");
+        this.$refs.userEmailAdd.focus();
+        return;
+      } else if (!userEmailAddPattern.test(this.userEmailAdd)) {
+        alert("이메일 주소를 정확하게 입력해주세요 :)");
+        this.$refs.userEmailAdd.focus();
+        return;
+      } else {
+        // this.$refs.searchEmail.focus();
+        this.chkEmailAdd = true;
+        return;
+      }
     },
 
     // 이메일 도메인 선택
     emailDomEv() {
-      if(_.isEqual(this.searchEmail, "선택")) {
+      if(_.isEqual(this.searchEmDom, "선택")) {
         this.searchEm = "";
         return;
-      } else if (_.isEqual(this.searchEmail, "직접입력")) {
+      } else if (_.isEqual(this.searchEmDom, "직접입력")) {
         this.searchEm = "";
         this.$refs.searchEm.focus();
         return;
       } else {
-        this.searchEm = this.searchEmail;
+        this.searchEm = this.searchEmDom;
         return;
       }
     },
+
     // 이메일 :: 직접입력시 체크
     checkEmailDom() {
-      if(_.isEmpty(this.searchEm)) {
+      const domainPattern = /^([a-z]+\.)+[a-z]{3,}$/;
+
+      if(_.isEmpty(this.searchEm) && this.searchEmDom == "선택") {
+        alert("이메일 도메인을 선택해주세요 :)");
+        this.$refs.searchEm.focus();
+        return;
+      } else if ((this.searchEmDom == "직접입력") && _.isEmpty(this.searchEm)) {
+        alert("이메일 도메인을 직접 입력해주세요 :)");
+        this.$refs.searchEm.focus();
+        return;
+      } else if (!domainPattern.test(this.searchEm)) {
+        alert("이메일 도메인을 정확하게 입력해주세요 :)");
         this.$refs.searchEm.focus();
         return;
       } else {
+        this.$refs.userGenM.focus();
+        this.chkEmailDom = true;
         return;
       }
-
     },
 
+    // 성별 :: 남자 클릭
     checkUserGenM() {
       this.isMale = !this.isMale;
       this.isFeMale = false;
     },
+
+    // 성별 :: 여자 클릭
     checkUserGenF() {
       this.isFeMale = !this.isFeMale;
       this.isMale = false;
@@ -631,49 +711,41 @@ export default{
 
     // 회원가입 버튼 연동
     saveUserInfo() {
-      if (_.isEmpty(this.userId)) {
-         alert("아이디를 입력해주세요 :)");
-         this.$refs.userId.focus();
+      if(this.chkId == false) {
+        this.checkId();
         return;
-      } else if (this.chkId == false) {
-         this.checkId();
-         return;
-      } else if (_.isEmpty(this.userPass)) {
-        alert("비밀번호를 입력해주세요 :)");
-        this.$refs.userPass.focus();
-        return;
-      } else if(this.chkPass == false) {
+      } else if (this.chkPass == false) {
         this.checkPass();
-        return;
-      } else if (_.isEmpty(this.userPassChk)) {
-        alert("비밀번호를 재입력해주세요 :)");
-        this.$refs.userPassChk.focus();
         return;
       } else if (this.chkPassChk == false) {
         this.checkPassChk();
         return;
-      } else if (_.isEmpty(this.userName)) {
-        // alert("이름을 입력해주세요 :)");
-        // this.$refs.userName.focus();
+      } else if (this.chkName == false) {
         this.checkName();
         return;
-      } else if (_.isEmpty(this.userHp1)) {
-        alert("전화번호를 입력해주세요 :)");
-        this.$refs.userHp1.focus();
+      } else if (this.chkHp1 == false) {
+        this.checkHp1();
         return;
-      } else if (_.isEmpty(this.userHp2)) {
-        alert("전화번호를 입력해주세요 :)");
-        this.$refs.userHp2.focus();
+      } else if (this.chkHp2 == false) {
+        this.checkHp2();
         return;
-      } else if (_.isEmpty(this.userHp3)) {
-        alert("전화번호를 입력해주세요 :)");
-        this.$refs.userHp3.focus();
+      } else if (this.chkHp3 == false) {
+        this.checkHp3();
         return;
-      } else if (_.isEmpty(this.userZc)) {
-        alert("주소를 입력해주세요 :)");
-        this.$refs.userZc.focus();
+      } else if (this.chkAdd == false) {
+        this.checkAdd();
         return;
-      } else if (this.termChk === false) {
+      } else if (this.chkEmailAdd == false) {
+        this.checkEmailAdd();
+        return;
+      } else if (this.chkEmailDom == false) {
+        this.checkEmailDom();
+        return;
+      } else if (this.isMale == false && this.isFeMale == false) {
+        alert("성별을 선택해주세요 :)");
+        this.$refs.userGenM.focus();
+        return;
+      } else if (this.allChk === false) {
         alert("약관동의를 모두 체크해주세요 :)");
         this.isPanelOpen = true;
         return;
