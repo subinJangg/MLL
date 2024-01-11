@@ -25,6 +25,7 @@ export default{
 
 <style>
 @import "./assets/css/fonts.css";
+@import "./assets/css/custom.css";
 
 #app {
   font-family: 'SDSamliphopangche_Basic';

@@ -30,7 +30,6 @@
         placeholder="PASSWORD"
         @keydown.enter="checkPass()"
       />
-<!--       oninput="javascript: this.value = this.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');"-->
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top:10px;">
@@ -71,7 +70,7 @@ export default {
   data() {
     return {
       chkPass: false,
-
+      userId: '',
       userPass: '',
 
     };
@@ -86,14 +85,19 @@ export default {
     // 아이디 특수문자 제어
     checkId() {
 
-      const num = this.userId.search(/[0-9]/g);
-      const eng = this.userId.search(/[a-z]/gi);
+      const spe = this.userId.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      const kor = this.userId.search(/[가-힣ㄱ-ㅎㅏ-ㅣ]/g);
+      const wht = this.userId.search(/\s/);
 
-      if(eng < 0 && num < 0) {
+      if(_.isEmpty(this.userId)) {
+        alert("아이디를 입력해주세요");
+        this.$refs.userId.focus();
+        return;
+      } else if(spe != -1 || kor != -1) {
         alert("영문, 숫자를 이용하여 아이디를 입력해주세요");
         this.$refs.userId.focus();
         return;
-      } else if(this.userId.search(/\s/) != -1) {
+      } else if(wht != -1) {
         alert("아이디는 공백 없이 입력해주세요 :)");
         this.$refs.userId.focus();
         return;
@@ -107,7 +111,11 @@ export default {
       const eng = this.userPass.search(/[a-z]/gi);
       const spe = this.userPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
-      if (num < 0 || eng < 0 || spe < 0) {
+      if(_.isEmpty(this.userPass)) {
+        alert("비밀번호를 입력해주세요");
+        this.$refs.userPass.focus();
+        return;
+      } else if (num < 0 || eng < 0 || spe < 0) {
         alert("비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요 :)");
         this.$refs.userPass.focus();
         return;
@@ -116,9 +124,10 @@ export default {
 
     // 로그인 버튼
     loginBtn() {
+
       if(_.isEmpty(this.userId)) {
-        alert("아이디를 입력해주세요");
         this.$refs.userId.focus();
+        alert("아이디를 입력해주세요");
         return;
       } else if(_.isEmpty(this.userPass)) {
         alert("비밀번호를 입력해주세요");
@@ -126,10 +135,37 @@ export default {
         return;
       }
 
+      const value = {
+        userId: this.userId,
+        userPass: this.userPass,
+      }
+      console.log(value);
+      this.$axios.post('/api/test/gLoginUs', value)
+          .then(({ data }) =>{
+      console.log(data)
+            if(_.isEmpty(data)) {
+              alert("아이디나 비밀번호가 일치하지 않습니다.\n 다시 로그인해주세요 :)");
+              this.userId = "";
+              this.userPass = "";
+              this.$refs.userId.focus();
+              return;
+            } else {
+              alert("로그인 성공 :)");
+              return;
+            }
+
+          }).catch(({ message }) => {
+            alert(message);
+            alert("처리중 오류가 발생하였습니다.\n 고객센터에 문의해주세요 :)");
+            return;
+      })
+
+
+
+
+
+
     },
-
-
-
   },
 }
 
@@ -141,12 +177,20 @@ export default {
   width: 300px;
 }
 
+
+.btn {
+  border-radius: 3px
+}
+
 .btn_color {
-  background-color: #FFD89C
+  background: #FFD89C;
+  border: 1px solid #ecc387;
 }
 
-.btn_color:active {
-
+button.btn_color:hover,
+button.btn_color:focus,
+button.btn_color:active {
+  background: #f8cf94;
+  border: 1px solid #ecc387;
 }
-
 </style>

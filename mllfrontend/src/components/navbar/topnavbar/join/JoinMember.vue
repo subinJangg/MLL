@@ -70,7 +70,7 @@
           placeholder="비밀번호  재입력"
           ref="userPassChk"
           style="width:310px"
-          @keyup.enter="checkPassChk()"
+          @change="checkPassChk()"
         />
         <font-awesome-icon
             v-if="!showPassChk"
@@ -100,7 +100,7 @@
           maxlength="20"
           placeholder="이름을 입력해주세요"
           ref="userName"
-          @keyup.enter="checkName()"
+          @change="checkName()"
         />
       </div>
 
@@ -117,7 +117,7 @@
           placeholder="010"
           style="width: 95px;"
           ref="userHp1"
-          @keyup.enter="checkHp1()"
+          @change="checkHp1()"
         />
         <i style="width:30px; margin-top:7px"> - </i>
         <input
@@ -128,7 +128,7 @@
           placeholder=""
           style="width: 95px;"
           ref="userHp2"
-          @keyup.enter="checkHp2()"
+          @change="checkHp2()"
         />
         <i style="width:30px; margin-top:7px"> - </i>
         <input
@@ -139,7 +139,7 @@
           placeholder=""
           style="width: 95px;"
           ref="userHp3"
-          @keyup.enter="checkHp3()"
+          @change="checkHp3()"
         />
       </div>
       <div class="d-flex justify-content-center title_margin">
@@ -154,7 +154,7 @@
             placeholder="우편번호"
             style="width: 250px;"
             ref="userZc"
-            @keyup.enter="checkAdd()"
+            @change="checkAdd()"
             readonly
         />
         <span class="input-group-btn">
@@ -631,7 +631,7 @@ export default{
         this.$refs.userEmailAdd.focus();
         return;
       } else {
-        // this.$refs.searchEmail.focus();
+         this.$refs.searchEmail.focus();
         this.chkEmailAdd = true;
         return;
       }
@@ -802,6 +802,4 @@ export default{
   background-color: #FFD89C;
 }
 
-
 </style>
-    

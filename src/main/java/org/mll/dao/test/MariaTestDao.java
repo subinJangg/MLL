@@ -15,5 +15,6 @@ public interface MariaTestDao {
 
      public List<MariaTestDto> selectSearchId(MariaTestDto param) throws Exception;
 
+     public List<MariaTestDto> selectLoginUs(String findUserId, String findUserPass) throws Exception;
 
 }

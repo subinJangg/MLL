@@ -25,7 +25,6 @@ public class MariaTestController {
 
     @RequestMapping("gTest")
     public ResponseEntity<List<MariaTestDto>> getTest(@RequestBody MariaTestDto param) throws Exception  {
-        log.info(param.getSearchUserId());
 
         List<MariaTestDto> contDto = null;
 
@@ -43,7 +42,6 @@ public class MariaTestController {
 
     @RequestMapping("gSearchId")
     public ResponseEntity<List<MariaTestDto>> getSearchId(@RequestBody MariaTestDto param) throws Exception  {
-        log.info(param.getUserId());
 
         List<MariaTestDto> contDto = null;
 
@@ -51,6 +49,23 @@ public class MariaTestController {
 
         try {
             contDto = mariaTestService.getSearchId(param);
+            entity = new ResponseEntity<>(contDto, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("ctl ::::::: " + e.getMessage());
+            throw e;
+        }
+        return entity;
+    }
+
+    @RequestMapping("gLoginUs")
+    public ResponseEntity<List<MariaTestDto>> getLoginUs(@RequestBody MariaTestDto param) throws Exception  {
+
+        List<MariaTestDto> contDto = null;
+
+        ResponseEntity<List<MariaTestDto>> entity = null;
+
+        try {
+            contDto = mariaTestService.getLoginUs(param);
             entity = new ResponseEntity<>(contDto, HttpStatus.OK);
         } catch (Exception e) {
             log.error("ctl ::::::: " + e.getMessage());

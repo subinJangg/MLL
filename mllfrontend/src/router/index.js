@@ -3,8 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 // 연결할 각 컴포넌트 import (src/views폴더 아래 컴포넌트들 생성해둠)
 
 import MainPageHome from "@/components/main/MainPageHome"
-import IntroMangLingLe from '@/components/navbar/about/IntroMangLingLe'
-import ShoppingAll from '@/components/navbar/about/ShoppingAll'
+import IntroMangLingLe from '@/components/about/IntroMangLingLe'
+import ShoppingAll from '@/components/about/ShoppingAll'
 import LoginMember from '@/components/navbar/topnavbar/login/LoginMember'
 import FindId from '@/components/navbar/topnavbar/login/FindId'
 import FindPass from '@/components/navbar/topnavbar/login/FindPass'

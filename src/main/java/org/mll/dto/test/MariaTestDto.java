@@ -15,6 +15,25 @@ public class MariaTestDto {
     private String userName;
     private String searchUserId;
 
+    private String findUserId;
+    private String findUserPass;
+
+    public String getFindUserId() {
+        return findUserId;
+    }
+
+    public void setFindUserId(String findUserId) {
+        this.findUserId = findUserId;
+    }
+
+    public String getFindUserPass() {
+        return findUserPass;
+    }
+
+    public void setFindUserPass(String findUserPass) {
+        this.findUserPass = findUserPass;
+    }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }

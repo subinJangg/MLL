@@ -46,4 +46,20 @@ public class MariaTestService {
         return list;
     }
 
+    public List<MariaTestDto> getLoginUs(MariaTestDto param) throws Exception {
+
+        List<MariaTestDto> list = null;
+
+        try {
+            log.info(param.getUserId());
+
+            String findUserId = param.getUserId();
+            String findUserPass= param.getUserPass();
+            list = mariaTestDao.selectLoginUs(findUserId, findUserPass);
+        } catch (Exception e) {
+            log.error("serv :::::::::: " + e.getMessage());
+            throw e;
+        }
+        return list;
+    }
 }

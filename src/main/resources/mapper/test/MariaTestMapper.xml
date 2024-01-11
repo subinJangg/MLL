@@ -14,4 +14,11 @@
         FROM MLL_USER
         WHERE USER_ID = #{userId}
     </select>
+
+    <select id="selectLoginUs" parameterType="String" resultType="Integer">
+        SELECT  COUNT(*)
+        FROM MLL_USER
+        WHERE USER_ID = #{findUserId}
+        AND USER_PASS = #{findUserPass}
+    </select>
 </mapper>

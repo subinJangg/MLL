@@ -4,7 +4,7 @@
    <div class="d-md-flex flex-md-column mb-3" style="margin-top:50px;">
      <div class="p-2">
        <img
-           src="@/assets/image/mango.png"
+           src="../../assets/image/mango.png"
            class="logo-img"
            style="height: 3%; width: 3%;"
        />
@@ -18,7 +18,7 @@
    <div class="d-md-flex flex-md-column mb-3" style="margin-top:50px;">
      <div class="p-2">
        <img
-           src="@/assets/image/lingo.png"
+           src="../../assets/image/lingo.png"
            class="logo-img"
            style="height: 3%; width: 3%;"
        />
@@ -32,7 +32,7 @@
    <div class="d-md-flex flex-md-column mb-3" style="margin-top:50px;">
      <div class="p-2">
        <img
-           src="@/assets/image/lego.png"
+           src="../../assets/image/lego.png"
            class="logo-img"
            style="height: 3%; width: 3%;"
        />

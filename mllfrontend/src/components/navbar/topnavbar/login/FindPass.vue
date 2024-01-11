@@ -39,6 +39,17 @@
       </span>
     </div>
 
+    <div class="d-flex justify-content-center" style="margin-top:10px;">
+      <router-link
+          class="nav-link active"
+          :to="{ name : 'FindId'}"
+      > 아이디 찾기  &nbsp; </router-link> |
+      <router-link
+          class="nav-link active"
+          :to="{ name : 'JoinMember'}"
+      > &nbsp; 회원가입 </router-link>
+    </div>
+
     <div class="d-flex justify-content-center" style="margin-top:50px;">
       <h6 style="margin-top:9px">
         비밀번호는 &nbsp;
@@ -110,8 +121,9 @@ import _ from 'lodash';
               // 아이디 유효성 체크
               if (_.isEmpty(data)) {
                 console.log(data);
-                alert("아이디를 다시 입력해주세요 :)");
+                alert("동일한 아이디가 없습니다.아이디를 다시 입력해주세요 :)");
                 this.searchUserId = "";
+                this.userPass="";
                 this.$refs.searchUserId.focus();
                 return;
               }
@@ -122,7 +134,7 @@ import _ from 'lodash';
               }
             }).catch(({ message }) =>{
               alert(message);
-              alert("처리중 오류가 발생하였습니다 고객센터에 문의해주세요 :)");
+              alert("처리중 오류가 발생하였습니다. 고객센터에 문의해주세요 :)");
               return;
             });
       },
@@ -130,7 +142,6 @@ import _ from 'lodash';
       goToLogin() {
         if(!_.isEmpty(this.userPass)) {
           this.$router.push({ name: 'LoginMember', param: { userId: this.searchUserId } });
-          console.log(this.searchUserId);
         } else {
           alert("아이디 인증을 먼저 해주세요 :)");
           this.$refs.searchUserId.focus();
