@@ -2,10 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 //생성한 뷰 라우터 받아오기
-import { router } from './router/index.js'
+import { router } from './router/router.js'
 
 //store import
-import store from './Store/modules/index.js'
+import store from './Store/store.js'
 
 //axios import
 import axios from 'axios'

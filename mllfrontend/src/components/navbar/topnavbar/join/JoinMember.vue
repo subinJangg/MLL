@@ -440,7 +440,7 @@ export default{
         userId: this.userId,
       }
 
-      this.$axios.post('/api/test/gSearchId', value)
+      this.$axios.post('/api/joinLogin/gSearchId', value)
           .then(({ data }) => {
             //this.chkId = data.length;
             if(_.isEqual(data.length, 1)) {

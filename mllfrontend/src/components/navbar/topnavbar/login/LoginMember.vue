@@ -17,6 +17,7 @@
           maxlegth="16"
           placeholder="ID"
           ref="userId"
+          oninput = "chg_eng(this)"
           @keydown.enter="checkId()"
         />
     </div>
@@ -60,11 +61,36 @@
     </div>
   </div>
 </template>
-    
+
+
 <script>
+
 import _ from 'lodash';
+import {reactive} from "vue";
+import axios from "axios";
+import store from "@/Store/store";
+import {router} from "@/router/router.js";
 
 export default {
+  setup() {
+    const state = reactive({
+      form:{
+        userId: "",
+        userPass:"",
+      }
+    })
+    const submit = () => {
+      axios.post("/api/joinLogin/gLoginUs").then((res) => {
+        store.commit('setAccount', res.data);
+        sessionStorage.setItem("id", res.data);
+        router.push({path:"/"});
+        alert("로그인했습니다.");
+      }).catch(() => {
+        alert("로그인 정보가 없습니다.");
+      });
+    }
+    return {state, submit}
+  },
   name: "LoginMember",
 
   data() {
@@ -140,10 +166,10 @@ export default {
         userPass: this.userPass,
       }
       console.log(value);
-      this.$axios.post('/api/test/gLoginUs', value)
+      this.$axios.post('/api/joinLogin/gLoginUs', value)
           .then(({ data }) =>{
       console.log(data)
-            if(_.isEmpty(data)) {
+            if(data != 1) {
               alert("아이디나 비밀번호가 일치하지 않습니다.\n 다시 로그인해주세요 :)");
               this.userId = "";
               this.userPass = "";
@@ -151,6 +177,7 @@ export default {
               return;
             } else {
               alert("로그인 성공 :)");
+
               return;
             }
 
@@ -159,13 +186,8 @@ export default {
             alert("처리중 오류가 발생하였습니다.\n 고객센터에 문의해주세요 :)");
             return;
       })
-
-
-
-
-
-
     },
+
   },
 }
 

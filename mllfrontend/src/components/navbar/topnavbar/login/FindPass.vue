@@ -110,12 +110,12 @@ import _ from 'lodash';
         }
 
         let value = {
-          searchUserId: this.searchUserId,
+          userId: this.searchUserId,
         }
 
         this.searchUserList.splice(0);
 
-        this.$axios.post('/api/test/gTest', value)
+        this.$axios.post('/api/joinLogin/gSearchId', value)
             .then(({ data }) => {
 
               // 아이디 유효성 체크
@@ -141,6 +141,7 @@ import _ from 'lodash';
 
       goToLogin() {
         if(!_.isEmpty(this.userPass)) {
+          console.log(this.searchUserId)
           this.$router.push({ name: 'LoginMember', param: { userId: this.searchUserId } });
         } else {
           alert("아이디 인증을 먼저 해주세요 :)");
